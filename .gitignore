@@ -3,5 +3,6 @@
 *.classpath
 *.settings
 *.target
+*.Servers
 target/
 .metadata/
