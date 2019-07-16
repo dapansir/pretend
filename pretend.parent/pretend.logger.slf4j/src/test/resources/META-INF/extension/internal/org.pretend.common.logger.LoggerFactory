@@ -1,0 +1,1 @@
+slf4j=org.pretend.logger.slf4j.factory.Slf4JLoggerFactory

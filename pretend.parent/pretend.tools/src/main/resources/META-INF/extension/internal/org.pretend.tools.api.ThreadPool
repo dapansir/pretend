@@ -1,0 +1,2 @@
+##limit
+limit=org.pretend.tools.threadpool.LimitThreadPool

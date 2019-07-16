@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretends xmlns="http://www.pretend.org/pretend" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.pretend.org/pretend ../xsd/pretend.xsd">
+	
+	<threadpool thread_name="pretend" core_pool_size="1" max_size="10"></threadpool>
+</pretends>
