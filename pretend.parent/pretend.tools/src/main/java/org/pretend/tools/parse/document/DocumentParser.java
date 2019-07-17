@@ -1,13 +1,14 @@
-package org.pretend.tools.parse;
+package org.pretend.tools.parse.document;
 
 import java.io.IOException;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.pretend.common.bean.BeanDefinition;
 import org.pretend.common.loader.ExtensionLoader;
 import org.pretend.common.util.ClassHelper;
 import org.pretend.tools.api.NameSpaceHandler;
@@ -35,10 +36,6 @@ public class DocumentParser {
 	 */
 	private static final String XSD_SCHEMA_LANGUAGE = "http://www.w3.org/2001/XMLSchema";
 	
-	private static final Map<String,NameSpaceHandler> nameSpaceHandlers = new ConcurrentHashMap<String,NameSpaceHandler>();
-	
-	private static NameSpaceHandler nameSpaceHandler = null;
-
 	private String xmlPath = "";
 	
 	private boolean pathSet;
@@ -88,46 +85,29 @@ public class DocumentParser {
 		setPathSet(true);
 	}
 	
-	private static NameSpaceHandler getNameSpaceHandler(String uri) {
-		NameSpaceHandler handler = nameSpaceHandlers.get(uri);
-		if(null == handler) {
-			nameSpaceHandlers.put(uri, ExtensionLoader.getExtensionLoader(NameSpaceHandler.class).getExtension(uri));
-			handler = nameSpaceHandlers.get(uri);
+	public List<BeanDefinition> parseXML(String configLocation) throws ParserConfigurationException, SAXException, IOException{
+		List<BeanDefinition> beanDefinitions = new ArrayList<BeanDefinition>();
+		Document document = getDocument();
+		Element root = document.getDocumentElement();
+		NodeList nodes = root.getChildNodes();
+		for (int i = 0; i < nodes.getLength(); i++) {
+			Node node = nodes.item(i);
+			if(node.getNodeType() == Element.ELEMENT_NODE){
+				Element element = (Element) node;
+				beanDefinitions.add(parseElement(element));
+			}
 		}
-		return handler;
-	}
-	
-	public Parser getParser() {
-		
-		return null;
+		return beanDefinitions;
 	}
 
+	public BeanDefinition parseElement(Element element){
+		NameSpaceHandler handler = ExtensionLoader.getExtensionLoader(NameSpaceHandler.class).getExtension(element.getNamespaceURI());
+		Parser parser = handler.getParser(element.getLocalName());
+		return parser.parse(element);
+	}
+	
 	public static void main(String[] args) {
-		DocumentParser documentParser = new DocumentParser("META-INF/config/tools.xml");
-		try {
-			Document document = documentParser.getDocument();
-			Element root = document.getDocumentElement();
-			String uri = null;
-			NodeList nodes = root.getChildNodes();
-			for (int i = 0; i < nodes.getLength(); i++) {
-				Node node = nodes.item(i);
-				if(node.getNodeType() == Element.ELEMENT_NODE){
-					Element element = (Element) node;
-					uri = element.getNamespaceURI();
-					NameSpaceHandler handler = ExtensionLoader.getExtensionLoader(NameSpaceHandler.class).getExtension(uri);
-					handler.parse(element);
-				}
-			}
-			System.out.println(root.getLocalName());
-			System.out.println(root.getTagName());
-			System.out.println(root.getNamespaceURI());
-		} catch (ParserConfigurationException e) {
-			e.printStackTrace();
-		} catch (SAXException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		
 	}
 	
 }
