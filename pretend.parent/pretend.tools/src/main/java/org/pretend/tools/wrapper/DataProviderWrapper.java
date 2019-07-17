@@ -2,15 +2,17 @@ package org.pretend.tools.wrapper;
 
 import java.util.List;
 
-import org.pretend.common.loader.ExtensionLoader;
 import org.pretend.tools.api.DataProvider;
 
 public class DataProviderWrapper<T> implements DataProvider<T>{
 	
-	@SuppressWarnings("unchecked")
-	private DataProvider<T> provider = ExtensionLoader.getExtensionLoader(DataProvider.class).getActiveExtension();
+	private DataProvider<T> provider;
 	
-	
+	public DataProviderWrapper(DataProvider<T> provider) {
+		super();
+		this.provider = provider;
+	}
+
 	public List<T> getData(){
 		checkProvider();
 		return provider.getData();

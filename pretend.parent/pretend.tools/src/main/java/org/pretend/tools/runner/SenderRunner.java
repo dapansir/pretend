@@ -3,16 +3,18 @@ package org.pretend.tools.runner;
 import java.util.List;
 
 import org.pretend.common.loader.ExtensionLoader;
+import org.pretend.tools.api.DataProvider;
+import org.pretend.tools.api.DataSender;
 import org.pretend.tools.api.ResultHandler;
 import org.pretend.tools.entity.SendResult;
-import org.pretend.tools.wrapper.DataProviderWrapper;
-import org.pretend.tools.wrapper.DataSenderWrapper;
 
 public class SenderRunner<T> implements Runnable {
 	
-	private DataSenderWrapper<T> sender = new DataSenderWrapper<T>(); 
+	@SuppressWarnings("unchecked")
+	private DataSender<T> sender = ExtensionLoader.getExtensionLoader(DataSender.class).getActiveExtension();
 	
-	private DataProviderWrapper<T> provider = new DataProviderWrapper<T>();
+	@SuppressWarnings("unchecked")
+	private DataProvider<T> provider = ExtensionLoader.getExtensionLoader(DataProvider.class).getActiveExtension();
 	
 	private ResultHandler exceptionHandler = ExtensionLoader.getExtensionLoader(ResultHandler.class).getExtension("exception");
 	

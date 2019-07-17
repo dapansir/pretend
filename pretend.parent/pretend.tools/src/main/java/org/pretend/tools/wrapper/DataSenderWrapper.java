@@ -2,15 +2,18 @@ package org.pretend.tools.wrapper;
 
 import java.util.List;
 
-import org.pretend.common.loader.ExtensionLoader;
 import org.pretend.tools.api.DataSender;
 import org.pretend.tools.entity.SendResult;
 
 public class DataSenderWrapper<T> implements DataSender<T> {
 
-	@SuppressWarnings("unchecked")
-	private DataSender<T> sender = ExtensionLoader.getExtensionLoader(DataSender.class).getActiveExtension();
+	private DataSender<T> sender;
 	
+	public DataSenderWrapper(DataSender<T> sender) {
+		super();
+		this.sender = sender;
+	}
+
 	@Override
 	public SendResult<T> send(List<T> data) {
 		checkSender();
