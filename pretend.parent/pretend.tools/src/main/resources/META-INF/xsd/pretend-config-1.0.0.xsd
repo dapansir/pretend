@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.pretend.org/schema/pretend-config" 
+	targetNamespace="http://www.pretend.org/schema/pretend-config"
+	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified">
+	<xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+	<xsd:element name="protocol">
+		<xsd:complexType>
+			<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+		    <xsd:attribute name="id" type="xsd:string"></xsd:attribute>
+		    <xsd:attribute name="date" type="xsd:date"></xsd:attribute>
+		    <xsd:attribute name="timestamp" type="xsd:time"></xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="threadpool">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[线程池配置]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="thread_name" type="xsd:string" default="pretend"/>
+			<xsd:attribute name="core_pool_size" type="xsd:int" default="0"/>	
+			<xsd:attribute name="max_size" type="xsd:int" default="200"/>	
+			<xsd:attribute name="queue_capacity" type="xsd:int" default="0"/>	
+			<xsd:attribute name="keep_alive_time" type="xsd:int" default="60000"/>	
+			<xsd:attribute name="unit" type="xsd:string"/>	
+			<xsd:attribute name="thread_factory" type="xsd:string" default="limit"/>	
+			<xsd:attribute name="handler" type="xsd:string"/>	
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>
