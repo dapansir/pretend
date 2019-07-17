@@ -1,6 +1,8 @@
 package org.pretend.tools.parse;
 
 import java.io.IOException;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -9,6 +11,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.pretend.common.loader.ExtensionLoader;
 import org.pretend.common.util.ClassHelper;
 import org.pretend.tools.api.NameSpaceHandler;
+import org.pretend.tools.api.Parser;
 import org.pretend.tools.parse.resolve.SchemaErrorHandler;
 import org.pretend.tools.parse.resolve.SchemaResolver;
 import org.w3c.dom.Document;
@@ -31,6 +34,10 @@ public class DocumentParser {
 	 * JAXP attribute value indicating the XSD schema language.
 	 */
 	private static final String XSD_SCHEMA_LANGUAGE = "http://www.w3.org/2001/XMLSchema";
+	
+	private static final Map<String,NameSpaceHandler> nameSpaceHandlers = new ConcurrentHashMap<String,NameSpaceHandler>();
+	
+	private static NameSpaceHandler nameSpaceHandler = null;
 
 	private String xmlPath = "";
 	
@@ -79,6 +86,20 @@ public class DocumentParser {
 		}
 		this.xmlPath = xmlPath;
 		setPathSet(true);
+	}
+	
+	private static NameSpaceHandler getNameSpaceHandler(String uri) {
+		NameSpaceHandler handler = nameSpaceHandlers.get(uri);
+		if(null == handler) {
+			nameSpaceHandlers.put(uri, ExtensionLoader.getExtensionLoader(NameSpaceHandler.class).getExtension(uri));
+			handler = nameSpaceHandlers.get(uri);
+		}
+		return handler;
+	}
+	
+	public Parser getParser() {
+		
+		return null;
 	}
 
 	public static void main(String[] args) {
