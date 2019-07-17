@@ -10,7 +10,7 @@ public class ObjectUtil {
 		if(null == value){
 			throw new IllegalArgumentException(message);
 		}
-		if(message instanceof String){
+		if(value instanceof String){
 			String str = (String)value;
 			if("".equals(str.trim())){
 				throw new IllegalArgumentException(message);

@@ -7,7 +7,11 @@ import org.pretend.tools.constant.RegexpStr;
 
 public class RegexpUtil {
 	
-private static final Pattern DATE_PATTERNER = Pattern.compile(RegexpStr.DATE_REG);
+	private RegexpUtil() {
+		
+	}
+	
+	private static final Pattern DATE_PATTERNER = Pattern.compile(RegexpStr.DATE_REG);
 	
 	private static final Pattern SPACE_PATTERNER = Pattern.compile(RegexpStr.SPACE_REG);
 	

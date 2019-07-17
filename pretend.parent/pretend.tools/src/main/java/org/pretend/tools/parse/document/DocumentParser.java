@@ -85,7 +85,7 @@ public class DocumentParser {
 		setPathSet(true);
 	}
 	
-	public List<BeanDefinition> parseXML(String configLocation) throws ParserConfigurationException, SAXException, IOException{
+	public List<BeanDefinition> parseXML() throws ParserConfigurationException, SAXException, IOException{
 		List<BeanDefinition> beanDefinitions = new ArrayList<BeanDefinition>();
 		Document document = getDocument();
 		Element root = document.getDocumentElement();
@@ -107,7 +107,19 @@ public class DocumentParser {
 	}
 	
 	public static void main(String[] args) {
-		
+		DocumentParser docParser = new DocumentParser("META-INF/config/tools.xml");
+		try {
+			docParser.parseXML();
+		} catch (ParserConfigurationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SAXException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 }
