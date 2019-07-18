@@ -110,14 +110,7 @@ public class DocumentParser {
 		DocumentParser docParser = new DocumentParser("META-INF/config/tools.xml");
 		try {
 			docParser.parseXML();
-		} catch (ParserConfigurationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (SAXException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}

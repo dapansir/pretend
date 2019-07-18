@@ -1,15 +1,15 @@
 package org.pretend.tools.namespace;
 
+import org.pretend.tools.config.ProtocolConfig;
 import org.pretend.tools.config.ThreadPoolConfig;
-import org.pretend.tools.parse.element.ProtocolParser;
-import org.pretend.tools.parse.element.ThreadPoolParser;
+import org.pretend.tools.parse.element.PretendParser;
 
 
-public class PretendNamaSpaceHandler extends AbstractNameSpaceHandler {
+public class PretendNameSpaceHandler extends AbstractNameSpaceHandler {
 	 
 	static{
-		registerParser("threadpool", new ThreadPoolParser(ThreadPoolConfig.class));
-		registerParser("protocol", new ProtocolParser());
+		registerParser("threadpool", new PretendParser(ThreadPoolConfig.class));
+		registerParser("protocol", new PretendParser(ProtocolConfig.class));
 	}
 	
 }
