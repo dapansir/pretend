@@ -17,6 +17,7 @@ import org.pretend.server.netty4.handler.Nett4ServerHttpEncoder;
 
 public class HttpNetty4Server implements Server{
 
+	
 	@Override
 	public void start() {
 		EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -31,9 +32,9 @@ public class HttpNetty4Server implements Server{
 					protected void initChannel(SocketChannel ch) throws Exception {
 						ch.pipeline()
 							.addLast("http_encoder", new HttpResponseEncoder())
-							.addLast("my_encoder", new Nett4ServerHttpEncoder())
+							.addLast("pretend_encoder", new Nett4ServerHttpEncoder())
 							.addLast("http_decoder",new HttpRequestDecoder())
-							.addLast("my_decoder",new Nett4ServerHttpDecoder());
+							.addLast("pretend_decoder",new Nett4ServerHttpDecoder());
 					}
 				});
 		
