@@ -8,8 +8,12 @@
 		<xsd:complexType>
 			<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
 		    <xsd:attribute name="id" type="xsd:string"></xsd:attribute>
-		    <xsd:attribute name="date" type="xsd:date"></xsd:attribute>
 		    <xsd:attribute name="timestamp" type="xsd:time"></xsd:attribute>
+		    <xsd:attribute name="addrress" type="xsd:string"></xsd:attribute>
+		    <xsd:attribute name="timeout" type="xsd:long"></xsd:attribute>
+		    <xsd:attribute name="heartbeat" type="xsd:long"></xsd:attribute>
+		    <xsd:attribute name="handler" type="xsd:string"></xsd:attribute>
+		    <xsd:attribute name="url" type="xsd:string"></xsd:attribute>
 		</xsd:complexType>
 	</xsd:element>
 	<xsd:element name="threadpool">

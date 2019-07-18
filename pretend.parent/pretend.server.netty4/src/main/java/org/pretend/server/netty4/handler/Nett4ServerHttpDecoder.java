@@ -24,19 +24,11 @@ public class Nett4ServerHttpDecoder extends ChannelInboundHandlerAdapter {
 			response = new DefaultFullHttpResponse(HttpVersion.HTTP_1_1, getResponseStatu(result));
 			ctx.write(response);
 		}else if(msg instanceof LastHttpContent){
-//			DefaultLastHttpContent content = (DefaultLastHttpContent)msg;
 			System.out.println(msg);
 			ctx.write(msg);
 		}else{
 			ctx.write(msg);
 		}
-	}
-
-	@Override
-	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
-		System.out.println("服务端消息读取结束");
-		ctx.flush();
-		ctx.close();
 	}
 	
 	private HttpResponseStatus getResponseStatu(DecoderResult result){

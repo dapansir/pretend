@@ -31,7 +31,7 @@ public class Nett4ServerHttpEncoder extends ChannelOutboundHandlerAdapter {
 			response = (DefaultFullHttpResponse)msg;
 			ByteBuf content = response.content();
 			content.writeBytes(getHtml().getBytes(CharsetUtil.UTF_8));
-			response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html;"+CharsetUtil.UTF_8);
+			response.headers().set(HttpHeaderNames.CONTENT_TYPE, "text/html;charset="+CharsetUtil.UTF_8);
 		}
 		ctx.writeAndFlush(response).addListener(ChannelFutureListener.CLOSE);
 	}
@@ -48,7 +48,7 @@ public class Nett4ServerHttpEncoder extends ChannelOutboundHandlerAdapter {
 		html.setBody(body);
 		//set meta-info
 		meta.setHttp_equiv(HttpHeaderNames.CONTENT_TYPE.toString());
-		meta.setContent("text/html;"+CharsetUtil.UTF_8);
+		meta.setContent("text/html;charset="+CharsetUtil.UTF_8);
 		List<HtmlMeta> metaes = new ArrayList<HtmlMeta>();
 		metaes.add(meta);
 		head.setMetaes(metaes);
