@@ -1,9 +1,9 @@
 package org.pretend.server.api.request;
 
-import org.pretend.server.api.invocation.PretendInvocation;
+import org.pretend.server.api.ParseResult;
 
 public interface RequestParser {
 	
-	PretendInvocation parseRequest(Object message);
+	ParseResult parseRequest(Object message);
 	
 }
