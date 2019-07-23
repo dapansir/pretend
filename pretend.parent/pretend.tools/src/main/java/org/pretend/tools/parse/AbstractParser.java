@@ -2,11 +2,11 @@ package org.pretend.tools.parse;
 
 import java.lang.reflect.Method;
 
+import org.pretend.common.Parameter;
 import org.pretend.common.bean.BeanDefinition;
 import org.pretend.common.util.ClassHelper;
 import org.pretend.common.util.ObjectUtil;
 import org.pretend.tools.constant.PretendTagName;
-import org.pretend.tools.entity.Parameter;
 import org.pretend.tools.util.RegexpUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;

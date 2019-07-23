@@ -9,9 +9,9 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.pretend.common.Parameter;
 import org.pretend.tools.api.ThreadPool;
 import org.pretend.tools.constant.Constants;
-import org.pretend.tools.entity.Parameter;
 
 public class LimitThreadPool implements ThreadPool {
 

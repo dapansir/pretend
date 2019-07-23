@@ -1,4 +1,4 @@
-package org.pretend.tools.entity;
+package org.pretend.common;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
