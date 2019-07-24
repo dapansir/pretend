@@ -9,11 +9,9 @@
     <module>pretend.web</module>
     <module>pretend.common</module>
     <module>pretend.logger.slf4j</module>
-    <module>pretend.server.netty4</module>
-    <module>pretend.server.api</module>
-    <module>pretend.client.api</module>
-    <module>pretend.client.netty4</module>
     <module>pretend.tools</module>
+    <module>pretend.remoting.api</module>
+    <module>pretend.remoting.netty4</module>
   </modules>
   <properties>
   	<project.verion>0.0.1-SNAPSHOT</project.verion>
