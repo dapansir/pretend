@@ -25,7 +25,7 @@ public class InternalDecoder extends ChannelInboundHandlerAdapter{
 		try {
 			StringBuilder sb = new StringBuilder();
 			byteBuf = (ByteBuf) msg;
-			byte[] header = new byte[byteBuf.readableBytes()];
+//			byte[] header = new byte[byteBuf.readableBytes()];
 			while (byteBuf.isReadable()) {
 //				byteBuf.readBytes(header);
 				byte readByte = byteBuf.readByte();
