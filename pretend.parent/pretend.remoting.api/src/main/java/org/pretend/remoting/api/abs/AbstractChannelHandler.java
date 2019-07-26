@@ -1,8 +1,8 @@
 package org.pretend.remoting.api.abs;
 
+import org.pretend.remoting.api.RemotingException;
 import org.pretend.remoting.api.interfaces.Channel;
 import org.pretend.remoting.api.interfaces.ChannelHandler;
-import org.pretend.remoting.api.interfaces.RemotingException;
 
 public class AbstractChannelHandler implements ChannelHandler{
 

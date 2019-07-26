@@ -1,10 +1,10 @@
 package org.pretend.remoting.api.abs;
 
 import org.pretend.common.Parameter;
+import org.pretend.remoting.api.RemotingException;
 import org.pretend.remoting.api.interfaces.Channel;
 import org.pretend.remoting.api.interfaces.ChannelHandler;
 import org.pretend.remoting.api.interfaces.Endpoint;
-import org.pretend.remoting.api.interfaces.RemotingException;
 
 public abstract class AbstractPeer implements Endpoint,ChannelHandler {
 	

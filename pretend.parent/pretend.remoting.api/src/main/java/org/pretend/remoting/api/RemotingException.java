@@ -1,6 +1,8 @@
-package org.pretend.remoting.api.interfaces;
+package org.pretend.remoting.api;
 
 import java.net.InetSocketAddress;
+
+import org.pretend.remoting.api.interfaces.Channel;
 
 public class RemotingException extends Exception {
 	private static final long serialVersionUID = -3160452149606778709L;

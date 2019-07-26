@@ -34,11 +34,11 @@
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-webmvc</artifactId>
 	</dependency>
-	<!-- <dependency>
+	<dependency>
 		<groupId>org.px.pretend</groupId>
-		<artifactId>pretend.invoke.service.impl</artifactId>
+		<artifactId>pretend.remoting.dubbo</artifactId>
 		<version>${project.version}</version>
-	</dependency> -->
+	</dependency>
 	<dependency>
 	    <groupId>com.alibaba</groupId>
 	    <artifactId>fastjson</artifactId>

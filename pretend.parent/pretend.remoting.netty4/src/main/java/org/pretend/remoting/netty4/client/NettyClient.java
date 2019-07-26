@@ -13,9 +13,9 @@ import io.netty.channel.socket.nio.NioSocketChannel;
 import java.util.concurrent.TimeUnit;
 
 import org.pretend.common.Parameter;
+import org.pretend.remoting.api.RemotingException;
 import org.pretend.remoting.api.abs.AbstractClient;
 import org.pretend.remoting.api.interfaces.ChannelHandler;
-import org.pretend.remoting.api.interfaces.RemotingException;
 import org.pretend.remoting.netty4.channel.Netty4Channel;
 
 public class NettyClient extends AbstractClient {

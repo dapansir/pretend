@@ -7,9 +7,9 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.pretend.common.Parameter;
+import org.pretend.remoting.api.RemotingException;
 import org.pretend.remoting.api.abs.AbstractChannel;
 import org.pretend.remoting.api.interfaces.ChannelHandler;
-import org.pretend.remoting.api.interfaces.RemotingException;
 
 public class Netty4Channel extends AbstractChannel {
 	

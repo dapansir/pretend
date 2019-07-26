@@ -3,6 +3,7 @@ package org.pretend.remoting.api.interfaces;
 import java.net.InetSocketAddress;
 
 import org.pretend.common.Parameter;
+import org.pretend.remoting.api.RemotingException;
 
 public interface Endpoint {
 	/**
