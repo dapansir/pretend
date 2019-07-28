@@ -5,11 +5,11 @@ import com.alibaba.dubbo.config.ConsumerConfig;
 import com.alibaba.dubbo.config.ModuleConfig;
 import com.alibaba.dubbo.config.MonitorConfig;
 import com.alibaba.dubbo.config.ProtocolConfig;
-import com.alibaba.dubbo.config.ProviderConfig;
-import com.alibaba.dubbo.config.ReferenceConfig;
 import com.alibaba.dubbo.config.RegistryConfig;
 import com.alibaba.dubbo.config.ServiceConfig;
 import com.alibaba.dubbo.config.spring.AnnotationBean;
+import com.alibaba.dubbo.config.spring.ReferenceBean;
+import com.alibaba.dubbo.config.spring.ServiceBean;
 
 public class SpringDubboConfigServiceImpl extends AbstractConfigService {
 
@@ -19,10 +19,11 @@ public class SpringDubboConfigServiceImpl extends AbstractConfigService {
 		return getConfig(ConsumerConfig.class);
 	}
 
+	@SuppressWarnings("rawtypes")
 	@Override
-	public ProviderConfig getProviderConfig() {
+	public ServiceBean getProviderConfig() {
 
-		return getConfig(ProviderConfig.class);
+		return getConfig(ServiceBean.class);
 	}
 
 	@Override
@@ -57,9 +58,9 @@ public class SpringDubboConfigServiceImpl extends AbstractConfigService {
 
 	@SuppressWarnings("rawtypes")
 	@Override
-	public ReferenceConfig getReferenceConfig() {
+	public ReferenceBean getReferenceConfig() {
 
-		return getConfig(ReferenceConfig.class);
+		return getConfig(ReferenceBean.class);
 	}
 
 	@SuppressWarnings("rawtypes")

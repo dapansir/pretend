@@ -1,5 +1,7 @@
 package org.pretend.remoting.dubbo.spring;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import org.pretend.remoting.dubbo.service.ConfigService;
@@ -43,6 +45,19 @@ public abstract class AbstractConfigService implements ApplicationContextAware,C
 			ret = t;
 		}
 		return ret;
+	}
+	
+	@Override
+	public <T> List<T> getConfigList(Class<T> clazz){
+		List<T> list = null;
+		Map<String, T> beanMap = getBeanMap(clazz);
+		if(null != beanMap && !beanMap.isEmpty()) {
+			list = new ArrayList<T>();
+			for (T t : beanMap.values()) {
+				list.add(t);
+			}
+		}
+		return list;
 	}
 	
 	protected <T> Map<String,T> getBeanMap(Class<T> clazz){

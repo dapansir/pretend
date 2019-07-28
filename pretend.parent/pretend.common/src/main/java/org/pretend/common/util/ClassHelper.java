@@ -104,7 +104,7 @@ public class ClassHelper {
 		return fieldType;
 	}
 	
-	private static boolean javaSupperClass(Class<?> clazz){
+	public static boolean javaSupperClass(Class<?> clazz){
 		ObjectUtil.notNull(clazz, "cannot be null!");
 		if (clazz.equals(Object.class)) {
 			return true;
@@ -136,6 +136,34 @@ public class ClassHelper {
 			 temp = temp.substring(0,1).toUpperCase()+temp.substring(1);
 		}
 		return temp;
+	}
+	
+	public static Method getGetterMethod(Class<?> clazz ,String property) {
+		ObjectUtil.notNull(clazz, "clazz must not be null");
+		ObjectUtil.notNull(property, "property must not be null");
+		Class<?> propertyType = getPropertyType(clazz, property);
+		Method m = null;
+		String methodName = null;
+		if(null != propertyType) {
+			String getter = getMethodPrefix(propertyType, MethodConstants.METHOD_TYPE_GET)+toMethodsuffix(property);
+			Method[] declaredMethods = clazz.getDeclaredMethods();
+			if(null != declaredMethods && declaredMethods.length > 0) {
+				for (int i = 0; i < declaredMethods.length; i++) {
+					Method method = declaredMethods[i];
+					methodName = method.getName();
+					Class<?>[] parameterTypes = method.getParameterTypes();
+					if(null != parameterTypes 
+							&& parameterTypes.length == 0 
+							&&  method.getModifiers() == Modifier.PUBLIC 
+							&& method.getReturnType().equals(propertyType) 
+							&& methodName.equals(getter))  {
+						m = method; 
+						break;
+					}
+				}
+			}
+		}
+		return m;
 	}
 	
 	

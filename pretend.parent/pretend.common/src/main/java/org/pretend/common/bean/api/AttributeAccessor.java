@@ -1,5 +1,7 @@
 package org.pretend.common.bean.api;
 
+import java.util.Map;
+
 public interface AttributeAccessor {
 	
 	/**
@@ -31,4 +33,9 @@ public interface AttributeAccessor {
 	 * @return
 	 */
 	String[] attributeNames();
+	/**
+	 *  所有的属性
+	 * @return
+	 */
+	Map<String,Object> getAttributes();
 }

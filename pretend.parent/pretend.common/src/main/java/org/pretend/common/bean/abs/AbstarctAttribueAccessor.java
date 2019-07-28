@@ -1,5 +1,6 @@
 package org.pretend.common.bean.abs;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -35,4 +36,12 @@ public abstract class AbstarctAttribueAccessor implements AttributeAccessor {
 		return attributes.keySet().toArray(new String[attributes.keySet().size()]);
 	}
 
+	@Override
+	public Map<String, Object> getAttributes() {
+		
+		return Collections.unmodifiableMap(attributes);
+	}
+
+	
+	
 }
