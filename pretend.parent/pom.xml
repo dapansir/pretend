@@ -12,7 +12,7 @@
     <module>pretend.tools</module>
     <module>pretend.remoting.api</module>
     <module>pretend.remoting.netty4</module>
-	<module>end.remoting.dubbo</module>
+	<module>pretend.remoting.dubbo</module>
   </modules>
   <properties>
   	<project.verion>0.0.1-SNAPSHOT</project.verion>
