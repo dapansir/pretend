@@ -1,6 +1,7 @@
 package org.pretend.web.controller;
 
 import org.pretend.common.bean.BeanDefinition;
+import org.pretend.common.bean.DubboBeanDefinition;
 import org.pretend.remoting.dubbo.service.ConfigService;
 import org.pretend.web.controller.serialize.SerializeFilter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +27,8 @@ public class ConfigController {
 	@ResponseBody
 	public String getConsumerConfig(){
 		ServiceBean providerConfig = configService.getProviderConfig();
-		BeanDefinition bean = new BeanDefinition(providerConfig);
-		return JSON.toJSONString(bean,new SerializeFilter());
+		BeanDefinition bean = new DubboBeanDefinition(providerConfig);
+		return JSON.toJSONString(bean.getAttributes(),new SerializeFilter());
 	}
 	
 	@RequestMapping("/registry")

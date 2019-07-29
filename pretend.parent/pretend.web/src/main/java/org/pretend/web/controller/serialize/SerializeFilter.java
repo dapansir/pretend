@@ -19,8 +19,9 @@ private static final Set<String> EXCLUSIONES = new HashSet<String>();
 	}
 	@Override
 	public boolean apply(Object object, String name, Object value) {
-		System.out.println(name+":"+value);
-//		System.out.println(object);
+		if(null == value){
+			return false;
+		}
 		return true;
 	}
 
