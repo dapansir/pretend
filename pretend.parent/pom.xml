@@ -13,6 +13,8 @@
     <module>pretend.remoting.api</module>
     <module>pretend.remoting.netty4</module>
 	<module>pretend.remoting.dubbo</module>
+    <module>pretend.web.api</module>
+    <module>pretend.web.menu</module>
   </modules>
   <properties>
   	<project.verion>0.0.1-SNAPSHOT</project.verion>

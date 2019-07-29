@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pretends xmlns="http://www.pretend.org/schema/pretend" 
+				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+				xmlns:menu="http://www.pretend.org/schema/pretend-menu" 
+				xsi:schemaLocation="http://www.pretend.org/schema/pretend ../xsd/pretend.xsd 
+				http://www.pretend.org/schema/pretend-menu ../xsd/pretend-menu-1.0.0.xsd
+				">
+	<menu:bar name="提供者" order="1"/>
+</pretends>

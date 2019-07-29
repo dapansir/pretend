@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.pretend.org/schema/pretend-menu" 
+					targetNamespace="http://www.pretend.org/schema/pretend-menu" 
+					xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
+					elementFormDefault="qualified">
+	<xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+	<xsd:element name="bar">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[菜单条]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:attribute name="name" type="xsd:string"></xsd:attribute>
+			<xsd:attribute name="href" type="xsd:string"></xsd:attribute>
+			<xsd:attribute name="order" type="xsd:int"></xsd:attribute>
+			<xsd:attribute name="tipName" type="xsd:string"></xsd:attribute>
+			<xsd:attribute name="tipType" type="xsd:string"></xsd:attribute>
+			<xsd:attribute name="tipBackGroundUrl" type="xsd:string"></xsd:attribute>
+			<xsd:attribute name="power" type="xsd:int"></xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+</xsd:schema>

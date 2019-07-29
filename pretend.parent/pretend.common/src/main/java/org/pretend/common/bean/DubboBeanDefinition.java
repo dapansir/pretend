@@ -17,6 +17,7 @@ public class DubboBeanDefinition extends BeanDefinition {
 	 */
 	private static final long serialVersionUID = -2374821574899694645L;
 	
+	private static final String REF = "ref";
 	
 	@Override
     protected void dealField(FieldAccessor fieldAccessor, Map<String, Object> attributes) {
@@ -25,6 +26,10 @@ public class DubboBeanDefinition extends BeanDefinition {
 		
 		if (Map.class.isAssignableFrom(type) || Collection.class.isAssignableFrom(type)) {
 			super.dealField(fieldAccessor, attributes);
+		}
+		
+		if(REF.equals(fieldAccessor.name())) {
+			attributes.put(fieldAccessor.name(), fieldAccessor.deClaredBy());
 		}
 		
     }

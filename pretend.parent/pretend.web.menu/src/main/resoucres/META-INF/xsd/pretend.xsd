@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns="http://www.pretend.org/schema/pretend" xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+	targetNamespace="http://www.pretend.org/schema/pretend" elementFormDefault="qualified">
+	<xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+	<xsd:element name="pretends" id="pretends">
+		<xsd:annotation>
+			<xsd:documentation>
+				<![CDATA[根元素]]>
+			</xsd:documentation>
+		</xsd:annotation>
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:choice minOccurs="0" maxOccurs="unbounded">
+					<!-- ##any ##other ##local ##targetNamespace -->
+					<xsd:any namespace="##other" processContents="strict" minOccurs="0" maxOccurs="unbounded"/>
+				</xsd:choice>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:annotation>
+		<xsd:documentation>
+			<![CDATA[只是一个描述]]>
+		</xsd:documentation>
+	</xsd:annotation>
+	
+</xsd:schema>
