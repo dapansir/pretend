@@ -3,26 +3,48 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>Archetype Created Web Application</display-name>
-  <context-param>
- 	<param-name>contextConfigLocation</param-name>
- 	<param-value>
- 		classpath:META-INF/spring/spring-mvc.xml;classpath:META-INF/spring/spring-beans.xml
- 	</param-value>
-  </context-param>
-  <listener>
-  	<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-  </listener>
-  <servlet>
-  	<servlet-name>spring-dispatcher</servlet-name>
-  	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-  	<init-param>
-  		<param-name>contextConfigLocation</param-name>
-  		<param-value>classpath:META-INF/spring/spring-dispatch.xml</param-value>
-  	</init-param>
-  </servlet>
-  <servlet-mapping>
-  	<servlet-name>spring-dispatcher</servlet-name>
-  	<url-pattern>*.do</url-pattern>
-  </servlet-mapping>
+	<display-name>Archetype Created Web Application</display-name>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+			classpath:META-INF/spring/spring-mvc.xml;classpath:META-INF/spring/spring-beans.xml
+		</param-value>
+	</context-param>
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<servlet>
+		<servlet-name>spring-dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:META-INF/spring/spring-dispatch.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>spring-dispatcher</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<!--要使用的字符集，一般我们使用UTF-8(保险起见UTF-8最好) -->
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<!--是否强制设置request的编码为encoding，默认false，不建议更改 -->
+			<param-name>forceRequestEncoding</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceResponseEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
 </web-app>

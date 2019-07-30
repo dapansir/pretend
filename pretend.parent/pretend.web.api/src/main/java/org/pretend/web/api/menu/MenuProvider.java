@@ -2,9 +2,13 @@ package org.pretend.web.api.menu;
 
 import java.util.List;
 
-import org.pretend.web.api.entiy.MenuBar;
+import org.pretend.web.api.MainSideBar;
+import org.pretend.web.api.entiy.Bar;
 
 public interface MenuProvider {
 
-	List<MenuBar> getMenubars(int power);
+	List<Bar> getMenubars(int power);
+	
+	
+	MainSideBar getMainSideBar(int power);
 }

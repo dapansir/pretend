@@ -20,4 +20,20 @@
 			<xsd:attribute name="power" type="xsd:int"></xsd:attribute>
 		</xsd:complexType>
 	</xsd:element>
+	<xsd:element name="mainSideBar">
+		<xsd:complexType>
+			<xsd:choice maxOccurs="unbounded" minOccurs="0">
+				<xsd:element ref="menuSideBar"></xsd:element>
+			</xsd:choice>
+			<xsd:attribute name="user_panel" type="xsd:string"></xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="menuSideBar">
+		<xsd:complexType>
+			<xsd:choice maxOccurs="unbounded" minOccurs="0">
+				<xsd:element ref="bar"></xsd:element>
+			</xsd:choice>
+			<xsd:attribute name="label" type="xsd:string"></xsd:attribute>
+		</xsd:complexType>
+	</xsd:element>
 </xsd:schema>

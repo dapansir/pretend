@@ -11,4 +11,5 @@
       <dubbo:registry address="multicast://224.5.6.7:1234"/>
       <dubbo:service interface="org.pretend.remoting.dubbo.service.ConfigService" ref="configService"/>
       <bean id="configService" class="org.pretend.remoting.dubbo.spring.SpringDubboConfigServiceImpl"></bean> 
+      <bean id="menuProvider" class="org.pretend.web.menu.xml.XMLMenuProvider"></bean>
  </beans>

@@ -19,6 +19,9 @@ public abstract class AbstractParser {
 	static{
 		PARAMETER.addParameter(PretendTagName.THREAD_POOL, PretendTagName.THREAD_POOL);
 		PARAMETER.addParameter(PretendTagName.PROTOCOL, PretendTagName.PROTOCOL);
+		PARAMETER.addParameter(PretendTagName.BAR, PretendTagName.BAR);
+		PARAMETER.addParameter(PretendTagName.MAIN_SIDE_BAR, PretendTagName.MAIN_SIDE_BAR);
+		PARAMETER.addParameter(PretendTagName.MENU_SID_EBAR, PretendTagName.MENU_SID_EBAR);
 	}
 	/**
 	 * Turn the attribute of xml element to  java class property
@@ -101,7 +104,8 @@ public abstract class AbstractParser {
 	
 	
 	
-	protected void invoke(Method method,Class<?> parameterType,Object instance,Object value) throws Exception{
+	protected void invoke(Method method,Class<?> parameterType
+			,Object instance,Object value) throws Exception{
 		
 		if(parameterType.isPrimitive()){
 			String stringValue = String.valueOf(value);
@@ -152,16 +156,25 @@ public abstract class AbstractParser {
 	}
 	
 	public BeanDefinition parse(Element element) {
+		
 		this.tagCheck(element.getLocalName());
-		BeanDefinition bean = new BeanDefinition();
+		
+		return parseAttribute(element, getClazz());
+	}
+	
+	protected BeanDefinition parseAttribute(Element element,Class<?> clazz){
 		NamedNodeMap attributes = element.getAttributes();
+		BeanDefinition bean = null;
 		//这几个可以不定义,但是为了可读性声明出来
 		String attrName;
 		String attrValue;
 		String property;
 		String setter;
 		try {
-			Object instance = this.getClazz().newInstance();
+			bean = new BeanDefinition();
+			Object instance = clazz.newInstance();
+			bean.setSource(instance);
+			bean.setBeanClass(clazz);
 			for (int i = 0; i < attributes.getLength(); i++) {
 				Node node = attributes.item(i);
 				attrName = node.getNodeName();
@@ -169,16 +182,16 @@ public abstract class AbstractParser {
 				property = getPropertyName(attrName);
 				setter = getSetterMethodName(attrName);
 				try {
-					if (ClassHelper.hasGetter(this.getClazz(), property) && ClassHelper.hasSetter(this.getClazz(), property)) {
-						Class<?> parameterType = ClassHelper.getPropertyType( this.getClazz(), property);
-						Method method = this.getClazz().getMethod(setter,new Class<?>[] { parameterType });
+					if (ClassHelper.hasGetter(clazz, property) 
+							&& ClassHelper.hasSetter(clazz, property)) {
+						Class<?> parameterType = ClassHelper.getPropertyType(clazz, property);
+						Method method = clazz.getMethod(setter, new Class<?>[] { parameterType });
 						this.invoke(method, parameterType, instance, attrValue);
-						bean.setSource(instance);
-						bean.setBeanClass(getClazz());
 						bean.setAttribute(attrName, attrValue);
 					}
 				} catch (Exception e) {
-					System.out.println("xml attribute["+node.getNodeName()+"]在["+this.getClazz().getCanonicalName()+"]中没有对应的property");
+					System.out.println("xml attribute["+node.getNodeName()
+							+"]在["+this.getClazz().getCanonicalName()+"]中没有对应的property");
 					//logger
 				}
 			}
@@ -187,6 +200,11 @@ public abstract class AbstractParser {
 		}
 		return bean;
 	}
+	
+	
+	
+	
+	
 	
 	protected void tagCheck(String tagName){
 		if (!tagName.equals(PARAMETER.get(tagName))) {

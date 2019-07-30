@@ -6,3 +6,4 @@
 *.Servers
 target/
 .metadata/
+pretend.parent/pretend.web/src/main/webapp/WEB-INF/lib/pretend.web.api-0.0.1-SNAPSHOT.jar

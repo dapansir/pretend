@@ -1,6 +1,6 @@
 package org.pretend.web.api.entiy;
 
-public class MenuBar {
+public class Bar {
 	
 	private String name;
 	

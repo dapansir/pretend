@@ -1,4 +1,4 @@
-package org.pretend.web.controller;
+package org.pretend.web.controller.config;
 
 import org.pretend.common.bean.BeanDefinition;
 import org.pretend.common.bean.DubboBeanDefinition;
