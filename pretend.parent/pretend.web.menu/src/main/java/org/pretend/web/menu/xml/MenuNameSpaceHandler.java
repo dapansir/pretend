@@ -2,7 +2,6 @@ package org.pretend.web.menu.xml;
 
 
 import org.pretend.tools.namespace.AbstractNameSpaceHandler;
-import org.pretend.tools.parse.element.ElementParser;
 import org.pretend.web.api.MainSideBar;
 import org.pretend.web.api.MenuSideBar;
 import org.pretend.web.api.entiy.Bar;

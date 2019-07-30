@@ -64,7 +64,9 @@ public class DocumentParser {
 			throw new IllegalStateException("the xmlPath to resolve cannot be null!");
 		}
 		ClassLoader loader = ClassHelper.getClassLoader(this.getClass());
-		return new InputSource(loader.getResourceAsStream(xmlPath));
+		InputSource inputSource = new InputSource(loader.getResourceAsStream(xmlPath));
+		inputSource.setEncoding("UTF-8");
+		return inputSource;
 	}
 	
 	public boolean isPathSet() {

@@ -15,5 +15,5 @@
       	<property name="prefix" value="/WEB-INF/"></property>
       	<property name="suffix" value=".html"></property>
       </bean>     
-       
+      <mvc:resources location="/front-end/" mapping="/front-end/**/"></mvc:resources>
  </beans>

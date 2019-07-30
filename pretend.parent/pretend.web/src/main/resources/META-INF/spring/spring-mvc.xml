@@ -12,5 +12,4 @@
        						">
        <mvc:annotation-driven />
        <context:component-scan base-package="org.pretend.**"></context:component-scan>       
-       
  </beans>

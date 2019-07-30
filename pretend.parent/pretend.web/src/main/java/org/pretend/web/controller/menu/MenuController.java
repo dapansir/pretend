@@ -17,7 +17,7 @@ public class MenuController {
 	@Autowired
 	private MenuProvider menuProvider;
 	
-	@RequestMapping("/left")
+	@RequestMapping(value="/left",produces ="application/json; charset=UTF-8" )
 	@ResponseBody
 	public String leftBar(){
 		MainSideBar mainSideBar = menuProvider.getMainSideBar(1);
