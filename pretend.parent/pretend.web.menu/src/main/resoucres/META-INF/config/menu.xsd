@@ -10,9 +10,9 @@
 			<menu:bar name="提供者" order="1" href="index.html"></menu:bar>
 			<menu:bar name="消费者" order="2" href="index2.html"></menu:bar>
 		</menu:menuSideBar>
-		<menu:menuSideBar label="Dubbo">
-			<menu:bar name="提供者" order="1" href="index.html"></menu:bar>
-			<menu:bar name="消费者" order="2" href="index2.html"></menu:bar>
+		<menu:menuSideBar label="配置修改">
+			<menu:bar name="提供者配置修改" order="1" href="index.html"></menu:bar>
+			<menu:bar name="消费者配置修改" order="2" href="index2.html"></menu:bar>
 		</menu:menuSideBar>
 	</menu:mainSideBar>
 
