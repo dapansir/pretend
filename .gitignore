@@ -7,5 +7,3 @@
 target/
 .metadata/
 pretend.parent/pretend.web/src/main/webapp/WEB-INF/lib/pretend.web.api-0.0.1-SNAPSHOT.jar
-pretend.parent/pretend.web.menu/src/main/resoucres/META-INF/xsd/pretend-config-1.0.0.xsd
-pretend.parent/pretend.web.menu/src/main/resoucres/META-INF/config/test.xsd
