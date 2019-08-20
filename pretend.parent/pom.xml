@@ -15,6 +15,7 @@
 	<module>pretend.remoting.dubbo</module>
     <module>pretend.web.api</module>
     <module>pretend.web.menu</module>
+    <module>pretend.monitor.api</module>
   </modules>
   <properties>
   	<project.verion>0.0.1-SNAPSHOT</project.verion>

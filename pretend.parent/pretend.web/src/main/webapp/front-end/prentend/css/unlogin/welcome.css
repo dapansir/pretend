@@ -1,0 +1,9 @@
+body {
+    min-height: 2000px;
+    padding-top: 70px;
+}
+.logoText{
+    background-color:#367fa9;
+    color:#fff;
+    border-bottom:0 solid transparent;
+}
