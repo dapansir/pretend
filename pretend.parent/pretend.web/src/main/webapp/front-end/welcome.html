@@ -10,10 +10,12 @@
         <script src="prentend/js/unlogin/welcome.js"></script>
         <script src="prentend/bootstrap-3.3.7/js/bootstrap.js"></script>
         <link rel="stylesheet" href="prentend/bootstrap-3.3.7/css/dashboard/dashboard.css">
+        <link rel="stylesheet" href="prentend/css/ion/ion.css">
+        <link rel="stylesheet" href="prentend/bootstrap-3.3.7/css/cover/cover.css">
     </head>
     <body>
         <header>
-            <nav class="navbar navbar-inverse navbar-fixed-top">
+            <nav class="navbar navbar-default navbar-fixed-top">
                 <div class="container-fluid">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -43,15 +45,80 @@
                 <div class="row">
                     <div class="col-sm-3 col-md-2 sidebar">
                         <ul class="nav nav-sidebar">
-                            <li class="active"><a href="#">Overview <span class="sr-only">(current)</span></a></li>
-                            <li><a href="#">Dubbo</a></li>
-                            <li><a href="#">Monitor</a></li>
-                            <li><a href="#">Export</a></li>
+                            <li class="active">
+                                <a href="welcome.html">
+                                    <span  class="glyphicon glyphicon-equalizer" aria-hidden="true"></span>
+                                    <span>Overview</span>              
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span  class="glyphicon glyphicon-transfer" aria-hidden="true"></span>
+                                    <span>Dubbo</span>
+                                    <span class="glyphicon glyphicon-menu-left pull-right" aria-hidden="true"></span>
+                                </a>
+                                <ul class="treenode">
+                                    <li>
+                                        <a href="#">
+                                            <span class="glyphicon glyphicon-arrow-down"></span>
+                                            <span>提供者</span>
+                                            <span></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="glyphicon glyphicon-arrow-down"></span>
+                                            <span>消费者</span>
+                                            <span></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span  class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+                                    <span>Monitor</span>
+                                    <span class="glyphicon glyphicon-menu-left pull-right" aria-hidden="true"></span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#">
+                                    <span  class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                                    <span>export</span>
+                                    <span class="glyphicon glyphicon-menu-left pull-right" aria-hidden="true"></span>
+                                </a>
+                            </li>
                         </ul>
                     </div>
                 </div>
             </div>
-
         </aside>
+        <section>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main main-content">
+                <h1 class="page-header">Welcome to PretendConsole!</h1>
+                <div class="row placeholders">
+                    <div class="site-wrapper">
+                        <div class="site-wrapper-inner">
+                            <div class="cover-container">
+                                <div class="inner cover">
+                                    <h1 class="cover-heading">封面页.</h1>
+                                    <p class="lead">
+                                        一些概括信息,待后期开发!可以是一些文字描述,也可以是一些画板,图片之类的东西!
+                                    </p>
+                                    <p class="lead">
+                                        <a href="#" class="btn btn-lg btn-default">敬请期待</a>
+                                    </p>
+                                </div>
+                                <div class="mastfoot">
+                                    <div class="inner">
+                                        <p>Console for Pretend, by @pansir</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </body>
 </html>
