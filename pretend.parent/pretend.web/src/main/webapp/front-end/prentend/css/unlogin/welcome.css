@@ -46,3 +46,19 @@ body {
     background-color: #fff;
     color: #333;
 }
+
+.right-iframe{
+    width: 100%;
+    height: 100%;
+}
+
+.main-content{
+    padding-right: 0px;
+    padding-left: 0px;
+    top: -19px;
+    height: 890px;
+}
+
+.border-none{
+    border-right: 0px!important;
+}

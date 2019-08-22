@@ -10,7 +10,6 @@
         <script src="prentend/js/unlogin/welcome.js"></script>
         <script src="prentend/bootstrap-3.3.7/js/bootstrap.js"></script>
         <link rel="stylesheet" href="prentend/bootstrap-3.3.7/css/dashboard/dashboard.css">
-        <link rel="stylesheet" href="prentend/css/ion/ion.css">
         <link rel="stylesheet" href="prentend/bootstrap-3.3.7/css/cover/cover.css">
     </head>
     <body>
@@ -43,7 +42,7 @@
         <aside>
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-sm-3 col-md-2 sidebar">
+                    <div class="col-sm-3 col-md-2 sidebar border-none">
                         <ul class="nav nav-sidebar">
                             <li class="active">
                                 <a href="welcome.html">
@@ -59,7 +58,7 @@
                                 </a>
                                 <ul class="treenode" style="display:none">
                                     <li>
-                                        <a href="#">
+                                        <a href="prentend/pages/provider/providerlist.html" target="main-content">
                                             <span class="glyphicon glyphicon-record"></span>
                                             <span>提供者</span>
                                             <span></span>
@@ -110,8 +109,12 @@
             </div>
         </aside>
         <section>
-            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main main-content">
-                <h1 class="page-header">Welcome to PretendConsole!</h1>
+            <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main-content">
+                <iframe id="main-content" name="main-content" src="prentend/pages/welcome/welcome-cover.html" class="right-iframe" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+
+
+                </iframe>
+                <!--<h1 class="page-header">Welcome to PretendConsole!</h1>
                 <div class="row placeholders">
                     <div class="site-wrapper">
                         <div class="site-wrapper-inner">
@@ -133,7 +136,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
         </section>
     </body>
