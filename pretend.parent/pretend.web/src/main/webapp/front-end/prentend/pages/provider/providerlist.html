@@ -17,61 +17,31 @@
     <div class=".container">
         <div class="row">
         	<div class="table_center">
-                <!--<table id="providerlist" class="table table-bordered table-hover text-center">
+                <table id="providerlist" class="table table-bordered table-hover"
+                       data-toggle="table"
+                       data-url="data.json"
+                       data-pagination="true"
+                       data-page-size="10"
+                       data-page-list=" [10, 25, 50, 100]"
+                       data-pagination-pre-text="<"
+                       data-pagination-next-text=">"
+                       data-search="true"
+                       data-search-on-enter-key="true">
                     <thead>
                         <tr>
-                            <th colspan="8" class="text-right">dubbo提供者信息表格</th>
+                            <th colspan="7" class="text-right">dubbo提供者信息表格</th>
                         </tr>
                         <tr>
-                            <th class="text-center">序号</th>
-                            <th class="text-center ol-sm-6 col-md-5">接口名</th>
-                            <th class="text-center">提供者主机</th>
-                            <th class="text-center">状态</th>
-                            <th class="text-center ol-sm-2 col-md-1" colspan="3">操作</th>
+                            <th data-field="no" data-class="text-center">序号</th>
+                            <th data-field="class" data-class="text-center ol-sm-6 col-md-5">接口名</th>
+                            <th data-field="ip" data-class="text-center">提供者主机</th>
+                            <th data-field="state" data-class="text-center" data-formatter="stateFormatter">状态</th>
+                            <th data-field="op1" class="text-center" data-formatter="operatorFormatter">查看</th>
+                            <th data-field="op2" class="text-center" data-formatter="operatorFormatter">连通</th>
+                            <th data-field="op3" class="text-center" data-formatter="operatorFormatter">设置</th>
                         </tr>
                     </thead>
-                    <tbody>
-	                    <tr>
-	                        <td>1</td>
-	                        <td>a.b.c.d</td>
-	                        <td>10.16.72.31</td>
-	                        <td>
-                                <span class="label label-danger">off</span>
-							</td>
-	                        <td>
-                                <span class="btn btn-default btn-xs">查看</span>
-                            </td>
-	                        <td>
-                                <span class="btn btn-success btn-xs">连通</span>
-                            </td>
-	                        <td>
-                                <span class="btn btn-danger btn-xs">设置</span>
-                            </td>
-	                    </tr>
-	                    <tr>
-	                        <td>2</td>
-	                        <td>org.pretend.remoting.dubbo.service.ConfigService</td>
-	                        <td>10.73.45.57</td>
-	                        <td>
-                                <span class="label label-success">on</span>
-							</td>
-	                        <td>
-                                <span class="btn btn-default btn-xs">查看</span>
-                            </td>
-	                        <td>
-                                <span class="btn btn-success btn-xs">连通</span>
-                            </td>
-	                        <td>
-                                <span class="btn btn-danger btn-xs">设置</span>
-                            </td>
-	                    </tr>
-
-                    </tbody>
-                </table>-->
-                <table id="providerlist" class="table table-bordered table-hover text-center">
-
                 </table>
-
         	</div>
         </div>
     </div>
