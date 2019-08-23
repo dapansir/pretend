@@ -23,6 +23,9 @@ function operatorFormatter(value,row,index,field){
         classes += "btn-default";
     }else if(field == 'op2'){
         classes += "btn-success";
+        if(row.state == 1){
+            classes += " disabled";
+        }
     }else if(field == 'op3'){
         classes += "btn-danger";
     }
