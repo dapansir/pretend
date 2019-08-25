@@ -45,6 +45,11 @@
 		<version>${project.version}</version>
 	</dependency>
 	<dependency>
+		<groupId>org.px.pretend</groupId>
+		<artifactId>pretend.monitor.task</artifactId>
+		<version>${project.version}</version>
+	</dependency>
+	<dependency>
 	    <groupId>com.alibaba</groupId>
 	    <artifactId>fastjson</artifactId>
 	</dependency>

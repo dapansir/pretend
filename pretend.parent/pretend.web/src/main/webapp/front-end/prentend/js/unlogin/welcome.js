@@ -1,5 +1,5 @@
 function hideUl(ele){
-	$(ele).next().toggle(1000);
+	$(ele).next().toggle(800);
     changeGlyphiconMenu(ele);
 }
 
@@ -32,7 +32,7 @@ $(document).ready(function () {
         $(this).siblings().removeClass("active");
         $(this).siblings().each(function (index,item) {
             removeDown(item);
-            $(item).find("[name='treenodecontrol']").next().hide(1000);
+            $(item).find("[name='treenodecontrol']").next().hide(800);
         });
     });
    

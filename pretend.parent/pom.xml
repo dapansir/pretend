@@ -16,6 +16,7 @@
     <module>pretend.web.api</module>
     <module>pretend.web.menu</module>
     <module>pretend.monitor.api</module>
+    <module>pretend.monitor.task</module>
   </modules>
   <properties>
   	<project.verion>0.0.1-SNAPSHOT</project.verion>

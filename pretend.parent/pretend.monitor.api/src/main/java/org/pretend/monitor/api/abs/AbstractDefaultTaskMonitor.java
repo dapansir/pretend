@@ -1,14 +1,30 @@
 package org.pretend.monitor.api.abs;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
-import org.pretend.monitor.api.DataTaskMonitor;
+import org.pretend.monitor.api.DefaultTaskMonitor;
+import org.pretend.monitor.api.entity.TaskState;
 
-public abstract class AbstractDataTaskMonitor extends AbstractTaskMonitor implements DataTaskMonitor {
+public abstract class AbstractDefaultTaskMonitor extends AbstractTaskMonitor implements DefaultTaskMonitor {
 
 	private long dataConut;
 	
 	private long dealedDataCount;
+
+	private static final Map<String,AbstractDefaultTaskMonitor> THREADS = new ConcurrentHashMap<String,AbstractDefaultTaskMonitor>();
+	
+	public AbstractDefaultTaskMonitor() {
+		super();
+		registry();
+	}
+	
+	private void registry() {
+		THREADS.put(getTaskId(), this);
+	}
 
 	public long getDataCount() {
 		
@@ -73,6 +89,29 @@ public abstract class AbstractDataTaskMonitor extends AbstractTaskMonitor implem
 	    this.setDataConut(0);
 	    this.setDealedDataCount(0);
     }
+
+	public static List<TaskState> getTaskList(){
+		List<TaskState> states = new ArrayList<TaskState>();
+		for (AbstractDefaultTaskMonitor task : THREADS.values()) {
+			states.add(task.getStateEntity());
+		}
+		return states;
+	}
+
+	@Override
+	protected void setStateEntity(TaskState state) {
+		state.setAverageTime(this.averageTime());
+		state.setDataConut(this.getDataCount());
+		state.setDealedDataCount(this.getDealedDataCount());
+		state.setEstimatedEndDate(this.getEstimatedEndDate());
+		state.setEstimatedTime(this.getEstimatedTime());
+	}
+
+	@Override
+	protected void init() {
+		super.init();
+	}
+	
 	
 	
 }

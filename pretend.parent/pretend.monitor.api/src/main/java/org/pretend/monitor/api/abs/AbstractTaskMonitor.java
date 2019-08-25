@@ -1,8 +1,10 @@
 package org.pretend.monitor.api.abs;
 
+
 import java.util.Date;
 
 import org.pretend.monitor.api.TaskMonitor;
+import org.pretend.monitor.api.entity.TaskState;
 
 public abstract class AbstractTaskMonitor implements TaskMonitor {
 
@@ -13,6 +15,20 @@ public abstract class AbstractTaskMonitor implements TaskMonitor {
 	private Date stopDate;
 	
 	private int taskState;
+	
+	private boolean running;
+	
+	public boolean isRunning() {
+		return running;
+	}
+
+	public void setRunning(boolean running) {
+		this.running = running;
+	}
+
+	public AbstractTaskMonitor() {
+		super();
+	}
 
 	public String getTaskClassName() {
 		
@@ -79,6 +95,28 @@ public abstract class AbstractTaskMonitor implements TaskMonitor {
 	    return Thread.currentThread().getName();
     }
 	
+	public TaskState getStateEntity() {
+		TaskState state = new TaskState();
+		try {
+			state.setHasExcutedTime(this.getHasExcutedTime());
+		} catch (Exception e) {
+			//nothing to do
+		}
+		state.setStartDate(this.getStartDate());
+		state.setStopDate(this.getStopDate());
+		state.setTaskClassName(this.getTaskClassName());
+		state.setTaskId(this.getTaskId());
+		state.setTaskMoudle(this.getTaskMoudle());
+		state.setTaskState(this.getTaskState());
+		state.setThreadName(this.getThreadName());
+		state.setRunning(this.isRunning());
+		setStateEntity(state);
+		return state;
+	}
 	
+	protected abstract void setStateEntity(TaskState state);
 
+	protected void init() {
+		startDate = new Date();
+	}
 }

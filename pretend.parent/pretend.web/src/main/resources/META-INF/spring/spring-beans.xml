@@ -12,4 +12,5 @@
       <dubbo:service interface="org.pretend.remoting.dubbo.service.ConfigService" ref="configService"/>
       <bean id="configService" class="org.pretend.remoting.dubbo.spring.SpringDubboConfigServiceImpl"></bean> 
       <bean id="menuProvider" class="org.pretend.web.menu.xml.XMLMenuProvider"></bean>
+      <bean id="taskMonitorService" class="org.pretend.monitor.task.service.impl.TaskMonitorServiceImpl"></bean>
  </beans>
