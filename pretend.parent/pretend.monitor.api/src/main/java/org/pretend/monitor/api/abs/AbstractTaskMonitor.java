@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.pretend.monitor.api.TaskMonitor;
 import org.pretend.monitor.api.entity.TaskState;
+import org.pretend.tools.util.NetUtil;
 
 public abstract class AbstractTaskMonitor implements TaskMonitor {
 
@@ -17,6 +18,8 @@ public abstract class AbstractTaskMonitor implements TaskMonitor {
 	private int taskState;
 	
 	private boolean running;
+	
+	private String ip;
 	
 	public boolean isRunning() {
 		return running;
@@ -110,6 +113,7 @@ public abstract class AbstractTaskMonitor implements TaskMonitor {
 		state.setTaskState(this.getTaskState());
 		state.setThreadName(this.getThreadName());
 		state.setRunning(this.isRunning());
+		state.setIp(NetUtil.getIp());
 		setStateEntity(state);
 		return state;
 	}
