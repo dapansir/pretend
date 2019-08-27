@@ -3,24 +3,30 @@ var failState = [2,false];
 var dangerState = [3,"danger"];
 
 function contains(arr,value) {
-    return arr.find(function (element) {
+
+    var temp = arr.find(function (element) {
         if(element == value){
             return true;
         }
         return  false;
     });
+
+    if(undefined === temp){
+        return false;
+    }
+
+    return true;
 }
 
 function labelFormatter(value,row,index,field) {
     var classes = "label ";
     var result = parseValue(value,field);
+    var temp = "off";
     if(result.isSuccess() || result.isDanger()){
-        value = "on";
-    }else{
-        value = "off";
+        temp = "on";
     }
 
-    return spanFormatter(value,getClasses(value,field,"label"));
+    return spanFormatter(temp,getClasses(value,field,"label"));
 }
 
 function buttonFormatter(value,row,index,field) {
@@ -43,19 +49,20 @@ function buttonFormatter(value,row,index,field) {
 }
 
 function getClasses(value,field,ele) {
-    var prefix = getClassesPrefix(ele)
+    var prefix = getClassesPrefix(ele);
     var result = parseValue(value,field);
     if(result.isSuccess()){
         prefix += prefix+"-success";
     }else{
         if("fail" == result.getState()){
-            prefix += prefix+"-danger";
+            prefix += " "+prefix+"-danger";
         }else if("danger" == result.getState()){
-            prefix += prefix+"-warnning";
+            prefix += " "+prefix+"-warnning";
         }else{
-            prefix += prefix+"-default";
+            prefix += " "+prefix+"-default";
         }
     }
+    return prefix;
 }
 
 function getClassesPrefix(ele) {
