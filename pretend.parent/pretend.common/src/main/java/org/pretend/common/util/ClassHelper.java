@@ -3,11 +3,33 @@ package org.pretend.common.util;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.pretend.common.constant.MethodConstants;
 
 public class ClassHelper {
 
+	private static final List<Class<?>> PRIMITIVE_TYPES = new ArrayList<Class<?>>();
+	
+	private static final List<Class<?>> WRAPPERED_TYPES = new ArrayList<Class<?>>();
+
+	static{
+		PRIMITIVE_TYPES.add(byte.class);
+		WRAPPERED_TYPES.add(Byte.class);
+		PRIMITIVE_TYPES.add(short.class);
+		WRAPPERED_TYPES.add(Short.class);
+		PRIMITIVE_TYPES.add(int.class);
+		WRAPPERED_TYPES.add(Integer.class);
+		PRIMITIVE_TYPES.add(double.class);
+		WRAPPERED_TYPES.add(Double.class);
+		PRIMITIVE_TYPES.add(float.class);
+		WRAPPERED_TYPES.add(Float.class);
+		PRIMITIVE_TYPES.add(long.class);
+		WRAPPERED_TYPES.add(Long.class);
+		WRAPPERED_TYPES.add(BigDecimal.class);
+	}
 	
 	private ClassHelper(){
 		
@@ -147,14 +169,16 @@ public class ClassHelper {
 		if(null != propertyType) {
 			String getter = getMethodPrefix(propertyType, MethodConstants.METHOD_TYPE_GET)+toMethodsuffix(property);
 			Method[] declaredMethods = clazz.getDeclaredMethods();
+			//先在该类声明的方法中查找get方法
 			if(null != declaredMethods && declaredMethods.length > 0) {
 				for (int i = 0; i < declaredMethods.length; i++) {
 					Method method = declaredMethods[i];
 					methodName = method.getName();
 					Class<?>[] parameterTypes = method.getParameterTypes();
+					//公用,没有参数,返回值和属性相同,并且符合getXxx()命名的才是get方法
 					if(null != parameterTypes 
 							&& parameterTypes.length == 0 
-							&&  method.getModifiers() == Modifier.PUBLIC 
+							&& method.getModifiers() == Modifier.PUBLIC 
 							&& method.getReturnType().equals(propertyType) 
 							&& methodName.equals(getter))  {
 						m = method; 
@@ -162,9 +186,44 @@ public class ClassHelper {
 					}
 				}
 			}
+			//如果没有找到,就去父类里面找
+			if(null == m){
+				Class<?> superclass = clazz.getSuperclass();
+				if(!javaSupperClass(superclass)){
+					m = getGetterMethod(superclass, property);
+				}
+			}
 		}
 		return m;
 	}
 	
-	
+    public static boolean isString(Class<?> clazz) {
+		if(clazz.equals(String.class)){
+			return true;
+		}
+	    return false;
+    }
+
+    public static boolean isNumber(Class<?> clazz) {
+	    if(isString(clazz)){
+	    	return false;
+	    }
+	    if(isBoolean(clazz)){
+	    	return false;
+	    }
+	    if(PRIMITIVE_TYPES.contains(clazz)){
+	    	return true;
+	    }
+	    if(WRAPPERED_TYPES.contains(clazz)){
+	    	return true;
+	    }
+	    return false;
+    }
+
+    public static boolean isBoolean(Class<?> clazz) {
+		if(clazz.equals(boolean.class) || clazz.equals(Boolean.class)){
+			return true;
+		}
+	    return false;
+    }
 }

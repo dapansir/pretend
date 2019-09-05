@@ -12,7 +12,7 @@ public abstract class AbstarctAttribueAccessor implements AttributeAccessor {
 	private Map<String,Object> attributes = new LinkedHashMap<String,Object>();
 
 	public void setAttribute(String name, Object value) {
-		ObjectUtil.notNull(value, "Attribute["+name+"] must not be null!");
+		ObjectUtil.notNull(name, "name must not be null!");
 		attributes.put(name, value);
 	}
 

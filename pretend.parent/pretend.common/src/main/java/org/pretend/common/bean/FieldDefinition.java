@@ -2,8 +2,12 @@ package org.pretend.common.bean;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.pretend.common.bean.api.FieldAccessor;
+import org.pretend.common.util.ClassHelper;
 import org.pretend.common.util.ObjectUtil;
 
 public class FieldDefinition implements FieldAccessor {
@@ -13,6 +17,10 @@ public class FieldDefinition implements FieldAccessor {
 	private int modifiers = -1;
 	
 	private Object instance;
+	
+	private static final List<Class<?>> PRIMITIVE_TYPES = new ArrayList<Class<?>>();
+	
+	private static final List<Class<?>> WRAPPERED_TYPES = new ArrayList<Class<?>>();
 
 	public FieldDefinition(Field field,Object instance) {
 		super();
@@ -21,6 +29,23 @@ public class FieldDefinition implements FieldAccessor {
 		this.instance = instance;
 		this.modifiers = field.getModifiers();
 	}
+	
+	static{
+		PRIMITIVE_TYPES.add(byte.class);
+		WRAPPERED_TYPES.add(Byte.class);
+		PRIMITIVE_TYPES.add(short.class);
+		WRAPPERED_TYPES.add(Short.class);
+		PRIMITIVE_TYPES.add(int.class);
+		WRAPPERED_TYPES.add(Integer.class);
+		PRIMITIVE_TYPES.add(double.class);
+		WRAPPERED_TYPES.add(Double.class);
+		PRIMITIVE_TYPES.add(float.class);
+		WRAPPERED_TYPES.add(Float.class);
+		PRIMITIVE_TYPES.add(long.class);
+		WRAPPERED_TYPES.add(Long.class);
+		WRAPPERED_TYPES.add(BigDecimal.class);
+	}
+	
 
 	@Override
 	public boolean isStatic() {
@@ -108,6 +133,41 @@ public class FieldDefinition implements FieldAccessor {
     public Class<?> fieldType() {
 		
 	    return this.field.getType();
+    }
+
+	@Override
+    public boolean isString() {
+		
+	    return ClassHelper.isString(fieldType());
+    }
+
+	@Override
+    public boolean isNumber() {
+	    
+	    return ClassHelper.isNumber(fieldType());
+    }
+
+	@Override
+    public boolean isValueNull() {
+	    if(!isNumber()){
+	    	return false;
+	    }
+	    Object value = value();
+	    if(null == value){
+	    	return true;
+	    }
+	    if(isString()){
+	    	if("".equals(String.valueOf(value).trim())){
+	    		return true;
+	    	}
+	    }
+	    return false;
+    }
+
+	@Override
+    public boolean isBoolean() {
+		
+	    return ClassHelper.isBoolean(fieldType());
     }
 
 }

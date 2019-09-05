@@ -19,8 +19,6 @@ public abstract class AbstractTaskMonitor implements TaskMonitor {
 	
 	private boolean running;
 	
-	private String ip;
-	
 	public boolean isRunning() {
 		return running;
 	}

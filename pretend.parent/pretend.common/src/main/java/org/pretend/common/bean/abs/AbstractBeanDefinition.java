@@ -2,11 +2,10 @@ package org.pretend.common.bean.abs;
 
 import java.io.Serializable;
 import java.lang.reflect.Field;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.pretend.common.bean.FieldDefinition;
 import org.pretend.common.bean.api.BeanMetadataInfo;
@@ -20,10 +19,11 @@ public abstract class AbstractBeanDefinition extends AbstarctAttribueAccessor im
 	
 	private Class<?> beanClass;
 	
-	private static final String INSTANCE_PROPERTIES = "self/praent_properties";
-	
 	private final Set<String> exclusiones = new HashSet<String>();
 	
+	private Map<String,FieldAccessor> accessores = new ConcurrentHashMap<String, FieldAccessor>();
+	
+	private boolean attributeSetted = false;
 	
 	public AbstractBeanDefinition() {
 		super();
@@ -74,17 +74,14 @@ public abstract class AbstractBeanDefinition extends AbstarctAttribueAccessor im
 		return "AbstractBeanDefinition [source=" + source + ", beanClass="
 				+ beanClass + "]";
 	}
+	
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Map<String, Object> getAttributes() {
-		Map<String, Object>  ownProperties = (Map<String, Object>) getAttribute(INSTANCE_PROPERTIES);
-		if(ownProperties == null) {
-			ownProperties = new HashMap<String, Object>();
-			setAllAttributes(getBeanClass(), ownProperties, true);
-			setAttribute(INSTANCE_PROPERTIES, ownProperties);
+		if(!attributeSetted){
+			setAllAttributes(getBeanClass(),true);
 		}
-		return Collections.unmodifiableMap(ownProperties);
+		return super.getAttributes();
 	}
 	
 	/**
@@ -93,15 +90,15 @@ public abstract class AbstractBeanDefinition extends AbstarctAttribueAccessor im
 	 * @param ownProperties
 	 * @param containsParent
 	 */
-	protected void setAllAttributes(Class<?>  clazz,Map<String, Object>  ownProperties,boolean containsParent) {
-		ObjectUtil.notNull(ownProperties, "map cannot be null!");
-		ownProperties.putAll(getOwnProperties(clazz));
+	protected void setAllAttributes(Class<?>  clazz,boolean containsParent) {
+		setOwnProperties(clazz);
 		if(containsParent) {
 			Class<?> parent = clazz.getSuperclass();
 			if(!ClassHelper.javaSupperClass(parent)) {
-				setAllAttributes(parent,ownProperties, containsParent);
+				setAllAttributes(parent,containsParent);
 			}
 		}
+		attributeSetted = true;
 	}
 	
 	/**
@@ -109,28 +106,27 @@ public abstract class AbstractBeanDefinition extends AbstarctAttribueAccessor im
 	 * @param clazz
 	 * @return
 	 */
-	private Map<String, Object> getOwnProperties(Class<?> clazz) {
-		
-		Map<String, Object> attributes = new HashMap<String, Object>();
+	private void setOwnProperties(Class<?> clazz) {
 		
 		ObjectUtil.notNull(clazz, "clazz cannot be null!");
 		
 		Field[] declaredFields = clazz.getDeclaredFields();
 		
 		if (null != declaredFields && declaredFields.length > 0) {
+			
 			for (int i = 0; i < declaredFields.length; i++) {
 				
-				FieldDefinition fieldDefinition = new FieldDefinition(declaredFields[i], this.getSource());
+				FieldDefinition field = new FieldDefinition(declaredFields[i], this.getSource());
 				
-				if(!needDeal(fieldDefinition.name())){
+				if(!needDeal(field.name())){
 					continue;
 				}
 				
-				dealField(fieldDefinition, attributes);
+				accessores.put(field.name(), field);
+				
+				setAttribute(field.name(), field.value());
 			}
 		}
-		
-		return attributes;
 	}
 	
 	/**
@@ -164,11 +160,9 @@ public abstract class AbstractBeanDefinition extends AbstarctAttribueAccessor im
 		return exclusiones.add(exclusion);
 	}
 	
-	/**
-	 * 处理Field
-	 * @param fieldDefinition
-	 * @param attributes
-	 */
-	protected abstract void dealField(FieldAccessor fieldAccessor,Map<String, Object> attributes);
+	public FieldAccessor getFieldAccessor(String fieldName){
+		
+		return accessores.get(fieldName);
+	}
 	
 }

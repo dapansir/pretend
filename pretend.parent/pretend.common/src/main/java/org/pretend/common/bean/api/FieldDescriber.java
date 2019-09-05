@@ -36,6 +36,25 @@ public interface FieldDescriber extends BeanMetadataInfo {
 	 * @return
 	 */
 	boolean isFinal();
-	
+	/**
+	 * String 类型
+	 * @return
+	 */
+	boolean isString();
+	/**
+	 * 数字类型
+	 * @return
+	 */
+	boolean isNumber();
+	/**
+	 * 空值
+	 * @return
+	 */
+	boolean isValueNull();
+	/**
+	 * 布尔类型
+	 * @return
+	 */
+	boolean isBoolean();
 
 }
