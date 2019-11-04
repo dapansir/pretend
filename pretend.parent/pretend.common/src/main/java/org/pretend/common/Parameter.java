@@ -1,11 +1,17 @@
 package org.pretend.common;
 
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Parameter {
 
 	private Map<String, String> parameters = new ConcurrentHashMap<String, String>();
+	
+	public Map<String, String> getUnModifyableMap(){
+		
+		return Collections.unmodifiableMap(parameters);
+	}
 
 	// String,byte,char,short,int,long,float,double,boolean
 	public Parameter addParametersIfAbsent(String key, String value) {

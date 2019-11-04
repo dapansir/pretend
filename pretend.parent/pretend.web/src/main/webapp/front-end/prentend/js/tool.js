@@ -168,3 +168,49 @@ function spanFormatter(text,classes) {
 function simpleFormatter(text) {
     return "<span>"+text+"</span>";
 }
+
+
+function aFormatter(value,row,index,field){
+	
+	var classes = "btn btn-xs btn-success";
+	
+	return "<a class='btn btn-xs btn-success' href='invoke_detail.html?id="+value+"'>查看</a>";
+}
+
+
+function findParameter(location,key){
+	var index = location.indexOf("?");
+	var parameter = location.substring(index+1);
+	var params = parameter.split("&");
+	var temp = null;
+	var tempArr = null;
+	for(var i=0;i<params.length;i++){
+		var temp = params[i].split("=");
+		if(temp.length == 2 && key == temp[0]){
+			return temp[1];
+		}
+	}
+	return null;
+}
+
+
+
+
+if(!$.fn.serializeObject){
+	$.fn.serializeObject = function(){
+		var result = {};
+	      var a = this.serializeArray();
+	      $.each(a, function() {
+	          if (result[this.name] !== undefined) {
+	              if (!result[this.name].push) {
+	            	  result[this.name] = [result[this.name]];
+	              }
+	              result[this.name].push(this.value || '');
+	          } else {
+	        	  result[this.name] = this.value || '';
+	          }
+	      });
+	      return result;
+	}
+}
+

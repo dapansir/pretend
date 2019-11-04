@@ -160,6 +160,12 @@ public class ClassHelper {
 		return temp;
 	}
 	
+	public static Method getGetter(Class<?> clazz ,String property){
+		
+		
+		return null;
+	}
+	
 	public static Method getGetterMethod(Class<?> clazz ,String property) {
 		ObjectUtil.notNull(clazz, "clazz must not be null");
 		ObjectUtil.notNull(property, "property must not be null");

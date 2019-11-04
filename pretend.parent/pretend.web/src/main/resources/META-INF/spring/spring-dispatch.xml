@@ -12,8 +12,8 @@
        						">
        
       <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-      	<property name="prefix" value="/WEB-INF/"></property>
+      	<property name="prefix" value="/front-end/prentend/"></property>
       	<property name="suffix" value=".html"></property>
       </bean>     
-      <mvc:resources location="/front-end/" mapping="/front-end/**/"></mvc:resources>
+      <mvc:resources location="**/front-end/**" mapping="**/front-end/**"></mvc:resources>
  </beans>

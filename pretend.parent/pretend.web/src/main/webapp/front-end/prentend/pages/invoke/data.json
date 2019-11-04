@@ -1,0 +1,7 @@
+[
+  {
+  "no": "ftms_pay_01",
+  "show_name": "平盘付款",
+  "op_interface":"OfficePayOrReceiveService"
+  }
+]

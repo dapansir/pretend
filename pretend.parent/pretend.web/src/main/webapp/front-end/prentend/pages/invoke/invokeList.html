@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>调用测试列表页面</title>
+    <link rel="stylesheet" href="../../bootstrap-3.3.7/css/bootstrap.css">
+    <link rel="stylesheet" href="../../bootstrap-table/bootstrap-table.css">
+    <link rel="stylesheet" href="../../css/providerlist.css">
+    <script src="../../js/jquery/jquery.min.js"></script>
+    <script src="../../bootstrap-3.3.7/js/bootstrap.js"></script>
+    <script src="../../bootstrap-table/bootstrap-table.js"></script>
+    <script src="../../bootstrap-table/bootstrap-table-zh-CN.js"></script>
+    <script src="../../js/tool.js"></script>
+
+</head>
+<body>
+    <div class=".container">
+        <div >
+        	<div class="table_center">
+                <h3>可调用接口信息</h3>
+                <div class="page-header"></div>
+                <form class="form-inline">
+                    <div class="row">
+                        <div class="form-group col-sm-6 col-md-4 col-sm-offset-1">
+                            <label for="class">业务编号:</label>
+                            <input type="text" class="form-control" id="class" placeholder="接口名">
+                        </div>
+                        <div class="form-group col-sm-3 col-md-5 col-sm-offset-1">
+                            <label for="class">接口名:</label>
+                            <input type="text" class="form-control" id="class" placeholder="状态">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-offset-5">
+                            <button class="btn btn-success" >查 询</button>
+                            <button class="btn btn-default">重 置</button>
+                        </div>
+                    </div>
+                </form>
+
+                <hr>
+                
+                <table id="invokeList" class="table table-bordered table-hover"
+                       data-toggle="table"
+                       data-url="data.json"
+                       data-pagination="true"
+                       data-page-size="10"
+                       data-page-list=" [10, 25, 50, 100]"
+                       data-pagination-pre-text="<"
+                       data-pagination-next-text=">">
+                    <thead>
+                        <tr>
+                            <th data-field="no" data-class="text-center">业务编号</th>
+                            <th data-field="show_name" data-class="text-center">业务名称</th>
+                            <th data-field="op_interface" data-class="text-center ol-sm-6 col-md-5">操作接口</th>
+                            <th data-field="no" data-class="text-center" data-formatter="aFormatter">操作</th>
+                        </tr>
+                    </thead>
+                </table>
+        	</div>
+        </div>
+    </div>
+</body>
+</html>
