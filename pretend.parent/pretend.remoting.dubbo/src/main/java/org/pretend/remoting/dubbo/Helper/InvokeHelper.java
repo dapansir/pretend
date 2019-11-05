@@ -111,8 +111,10 @@ public class InvokeHelper {
 		protocol = String.valueOf(request.get("protocol"));
 		ObjectUtil.notNull(protocol, "调用协议不能为空");
 		clazz = Class.forName(String.valueOf(request.get("interfaceName")));
+		//方法名
 		String methodName = String.valueOf(request.get("method"));
 		ObjectUtil.notNull(methodName, "调用方法名不能为空");
+		//方法参数类型
 		String classes = String.valueOf(request.get("classes"));
 		Class<?>[] parameterTypes = new Class<?>[0];
 		if(null != classes && classes.length() > 0){

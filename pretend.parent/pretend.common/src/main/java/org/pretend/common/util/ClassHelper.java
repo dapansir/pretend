@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.pretend.common.MethodDescription;
 import org.pretend.common.constant.MethodConstants;
 
 public class ClassHelper {
@@ -232,4 +233,37 @@ public class ClassHelper {
 		}
 	    return false;
     }
+    
+    public static List<MethodDescription> getShortMthodName(Class<?> clazz){
+    	
+    	List<MethodDescription> names = new ArrayList<MethodDescription>();
+    	Method[] methodes = clazz.getDeclaredMethods();
+    	for (int i = 0; i < methodes.length; i++) {
+    		Method method = methodes[i];
+    		int modifier = Modifier.PUBLIC+Modifier.ABSTRACT;
+    		if(method.getModifiers() == Modifier.PUBLIC || method.getModifiers() == modifier ){
+    			MethodDescription desc = new MethodDescription();
+    			desc.setBelongTo(clazz.getName());
+    			desc.setSimpleReturnType(method.getReturnType().getSimpleName());
+    			desc.setReturnType(method.getReturnType().getName());
+    			desc.setName(method.getName());
+    			desc.setParameterCount(method.getParameterTypes().length);
+    			Class<?>[] parameterTypes = method.getParameterTypes();
+    			if(parameterTypes.length > 0){
+    				String[] parameterTypesStr = new String[parameterTypes.length];
+        			String[] simpleParameterTypes = new String[parameterTypes.length];
+        			for (int j = 0; j < parameterTypes.length; j++) {
+        				parameterTypesStr[j] = parameterTypes[j].getName();
+        				simpleParameterTypes[j] = parameterTypes[j].getSimpleName();
+                    }
+        			desc.setParameterTypes(parameterTypesStr);
+        			desc.setSimpleParameterTypes(simpleParameterTypes);
+    			}
+    			desc.setDescription(null);
+    			names.add(desc);
+    		}
+        }
+		return names;
+    }
+    
 }

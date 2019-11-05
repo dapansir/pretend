@@ -170,7 +170,14 @@ function simpleFormatter(text) {
 }
 
 
-function aFormatter(value,row,index,field){
+function toMethodList(value,row,index,field){
+	
+	var classes = "btn btn-xs btn-success";
+	
+	return "<a class='btn btn-xs btn-success' href='methodList.html?name="+value+"'>查看</a>";
+}
+
+function toMethodDetail(value,row,index,field){
 	
 	var classes = "btn btn-xs btn-success";
 	
