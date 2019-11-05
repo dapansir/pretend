@@ -2776,7 +2776,11 @@
 	  queryParamsType: 'limit',
 	  // 'limit', undefined
 	  responseHandler: function responseHandler(res) {
-	    return res;
+		  try{
+			  return eval(res);
+		  }catch( e){
+			  return res;
+		  }
 	  },
 	  totalField: 'total',
 	  totalNotFilteredField: 'totalNotFiltered',
@@ -5368,7 +5372,6 @@
 	        dataType: this.options.dataType,
 	        success: function success(_res) {
 	          var res = Utils.calculateObjectValue(_this9.options, _this9.options.responseHandler, [_res], _res);
-
 	          _this9.load(res);
 
 	          _this9.trigger('load-success', res);

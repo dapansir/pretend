@@ -48,7 +48,6 @@ public class DubboController {
         	return null;
         }
 		List<MethodDescription> list = ClassHelper.getShortMthodName(clazz);
-		
 		return JSONObject.toJSONString(list);
 	}
 	
