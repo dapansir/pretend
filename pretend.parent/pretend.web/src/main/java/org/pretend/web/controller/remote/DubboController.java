@@ -2,6 +2,8 @@ package org.pretend.web.controller.remote;
 
 import java.util.Map;
 
+import org.pretend.remoting.dubbo.Helper.InvokeHelper;
+import org.pretend.tools.util.BoUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,18 +24,31 @@ public class DubboController {
 		return "pages/invoke/invoke_detail";
 	}
 
-	@RequestMapping(value="/getBoInfos",method=RequestMethod.POST)
+	@RequestMapping(value="/getBoInfos",method=RequestMethod.POST,produces="application/json")
 	@ResponseBody
 	public String getBoInfos(@RequestBody String code){
 		
-		return JSONObject.toJSONString(null);
+		return JSONObject.toJSONString(BoUtil.getPropertyInfos(TestBo.class));
 	}
 	
 	@RequestMapping(value="/doTest",method=RequestMethod.POST)
 	@ResponseBody
-	public Object doTest(Map<String, String> param) {
+	public Object doTest(@RequestBody Map<String, String> param) {
 		Object result = null;
-		
+		String className = "";
+		String protocol = "";
+		String address = "";
+		String methodName = "";
+		String[] classTypes = {};
+		Object[] args = {};
+		try {
+	        InvokeHelper helper = new InvokeHelper(className, protocol, address);
+	        helper.invoke(methodName, null, args);
+        } catch (IllegalArgumentException e) {
+        	result = "缺少必要信息";
+        } catch (ClassNotFoundException e) {
+        	result = "接口配置不正确";
+        }
 		return JSONObject.toJSONString(result);
 	}
 	

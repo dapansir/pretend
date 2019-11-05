@@ -20,7 +20,12 @@
                 <h3>平盘付款</h3>
                 <div class="page-header"></div>
                 <form class="form-inline">
-                    
+                    <input type="hidden" name="interfaceName" id="interfaceName" value="org.apache.dubbo.demo.DemoService"/>
+                    <input type="hidden" name="method" id="method" value="sayHello"/>
+                    <input type="hidden" name="classes" id="classes" value="java.lang.String"/>
+                    <input type="hidden" name="address" id="address" value="127.0.0.1:20880">
+                    <input type="hidden" name="protocol" id="protocol" value="dubbo">
+                    <input type="hidden" name="argNames" id="argNames" value="dubbo">
                     <div class="row" id="connect">
                         <div class="col-sm-offset-5">
                             <a class="btn btn-success" id="doTest">测试</a>
@@ -46,13 +51,17 @@
 <script type="text/javascript">
 	var href = window.location.href;
 	var id = findParameter(href, "id");
-	$.post("../../../../dubbo/getBoInfos.do", {
-		"code" : id
-	}, function(data) {
-		if (undefined == data || null == data || data.length == 0) {
-			console.log("编号:" + id + "未查询到相关接口数据");
-			return;
-		}
+	var data = "code="+id;
+	$.ajax({
+		url:"../../../../dubbo/getBoInfos.do",
+		data:data,
+		type:"post",
+		success:function(data){appendElement(data)},
+		dataType:"json"
+	});
+	
+	function appendElement(data){
+		data = eval(data);
 		for (var i = 0; i < data.length; i= i+2) {
 			var element = $("#tempalte").clone(false);
 			$(element).find("[name='label1']").html(data[i].fieldName);
@@ -60,11 +69,13 @@
 			if(i+1 < data.length){
 				$(element).find("[name='label2']").html(data[i+1].fieldName);
 				$(element).find("[name='label2']").next().attr("name",data[i+1].fieldName);
+			}else{
+				$(element).find("[name='label2']").next().remove();
+				$(element).find("[name='label2']").remove();
 			}
 			$(element).insertBefore($("#connect"));
 		}
-	}, "json");
-	
+	}
 	
 	$("#doTest").on("click",function(){
 		var send = $(".form-inline").serializeObject();
@@ -72,6 +83,7 @@
 			url:"../../../../dubbo/doTest.do",
 			data:JSON.stringify(send),
 			success:function(data) {
+				debugger;
 				if (undefined == data || null == data || data.length == 0) {
 					console.log("编号:" + id + "未查询到相关接口数据");
 					return;
@@ -79,7 +91,7 @@
 				alert(data.backMessage);
 			},
 			contentType:"application/json; charset=UTF-8",
-			method:"post",
+			type:"post",
 			dataType:"json"
 		});
 	});

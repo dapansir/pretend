@@ -10,10 +10,10 @@
        						http://www.springframework.org/schema/mvc
        						http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
        						">
-       
-      <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-      	<property name="prefix" value="/front-end/prentend/"></property>
-      	<property name="suffix" value=".html"></property>
-      </bean>     
-      <mvc:resources location="**/front-end/**" mapping="**/front-end/**"></mvc:resources>
+
+	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/front-end/prentend/"></property>
+		<property name="suffix" value=".html"></property>
+	</bean>
+	<mvc:resources location="**/front-end/**" mapping="**/front-end/**"></mvc:resources>
  </beans>

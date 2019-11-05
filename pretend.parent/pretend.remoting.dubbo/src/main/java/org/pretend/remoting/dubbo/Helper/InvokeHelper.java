@@ -104,4 +104,24 @@ public class InvokeHelper {
         }
 		return result;
 	}
+	
+	public void resloveReq(Map<String,Object> request) throws ClassNotFoundException{
+		address = String.valueOf(request.get("address"));
+		ObjectUtil.notNull(address, "调用地址不能为空");
+		protocol = String.valueOf(request.get("protocol"));
+		ObjectUtil.notNull(protocol, "调用协议不能为空");
+		clazz = Class.forName(String.valueOf(request.get("interfaceName")));
+		String methodName = String.valueOf(request.get("method"));
+		ObjectUtil.notNull(methodName, "调用方法名不能为空");
+		String classes = String.valueOf(request.get("classes"));
+		Class<?>[] parameterTypes = new Class<?>[0];
+		if(null != classes && classes.length() > 0){
+			String[] parameterTypeString = classes.split(",");
+			parameterTypes = new Class<?>[parameterTypeString.length];
+			for (int i = 0; i < parameterTypeString.length; i++) {
+				parameterTypes[i] = Class.forName(parameterTypeString[i]);
+            }
+		}
+		
+	}
 }

@@ -10,6 +10,17 @@
        						http://www.springframework.org/schema/mvc
        						http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
        						">
-       <mvc:annotation-driven />
+       <mvc:annotation-driven>
+       	<mvc:message-converters register-defaults="true">
+       		<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+       			<property name="supportedMediaTypes">
+       				<list>
+       					<value>application/json;charset=utf-8</value>
+       				</list>
+       			</property>
+       		</bean>
+       	</mvc:message-converters>
+       </mvc:annotation-driven>
+       
        <context:component-scan base-package="org.pretend.**"></context:component-scan>       
  </beans>
