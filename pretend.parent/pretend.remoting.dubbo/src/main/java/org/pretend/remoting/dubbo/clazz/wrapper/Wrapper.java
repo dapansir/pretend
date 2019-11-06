@@ -5,8 +5,6 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 import org.jboss.netty.util.internal.ConcurrentHashMap;
-import org.pretend.common.util.ClassHelper;
-import org.pretend.remoting.dubbo.clazz.ClassMaker;
 
 import com.alibaba.dubbo.common.URL;
 import com.alibaba.dubbo.rpc.Invoker;
@@ -23,10 +21,6 @@ public class Wrapper {
 		if (clazz.isPrimitive()) {
 			throw new IllegalArgumentException("Can not create wrapper for primitive type: " + clazz);
 		}
-		ClassLoader loader = ClassHelper.getClassLoader(clazz);
-		String name = clazz.getName();
-		ClassMaker maker  = ClassMaker.newInstance(loader);
-//		maker.set
 	}
 
 	

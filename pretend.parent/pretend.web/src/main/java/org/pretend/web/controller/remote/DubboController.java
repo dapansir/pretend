@@ -47,8 +47,31 @@ public class DubboController {
         } catch (ClassNotFoundException e) {
         	return null;
         }
-		List<MethodDescription> list = ClassHelper.getShortMthodName(clazz);
+		List<MethodDescription> list = ClassHelper.getMethodesDes(clazz);
 		return JSONObject.toJSONString(list);
+	}
+	
+	@RequestMapping(value="/getMethodDetail",method=RequestMethod.POST)
+	@ResponseBody
+	public String getMethodDetail(@RequestBody Map<String,String> info){
+		MethodDescription desc = new MethodDescription();
+		desc.setBelongTo(info.get("belongTo"));
+		desc.setName(info.get("name"));
+		desc.setParameterCount(Integer.parseInt(info.get("parameterCount")));
+		desc.setReturnType(info.get("returnType"));
+		desc.setSimpleReturnType(info.get("simpleReturnType"));
+		
+		String parameterTypes = info.get("parameterTypes");
+		if(null != parameterTypes && parameterTypes.length() > 0){
+			desc.setParameterTypes(parameterTypes.split(","));
+		}
+		String simpleParameterTypes = info.get("simpleParameterTypes");
+		if(null != simpleParameterTypes && simpleParameterTypes.length() > 0){
+			desc.setSimpleParameterTypes(simpleParameterTypes.split(","));
+		}
+		desc.setDescription(null);
+		Map<String, Object> methodDetail = BoUtil.getMethodDetail(desc);
+		return JSONObject.toJSONString(methodDetail);
 	}
 	
 	@RequestMapping(value="/doTest",method=RequestMethod.POST)
@@ -59,7 +82,6 @@ public class DubboController {
 		String protocol = "";
 		String address = "";
 		String methodName = "";
-		String[] classTypes = {};
 		Object[] args = {};
 		try {
 	        InvokeHelper helper = new InvokeHelper(className, protocol, address);

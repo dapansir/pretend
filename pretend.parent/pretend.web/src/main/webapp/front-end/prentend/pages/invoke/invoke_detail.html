@@ -17,7 +17,7 @@
     <div class=".container">
         <div >
         	<div class="table_center">
-                <h3>平盘付款</h3>
+                <h3></h3>
                 <div class="page-header"></div>
                 <form class="form-inline">
                     <input type="hidden" name="interfaceName" id="interfaceName" value="org.apache.dubbo.demo.DemoService"/>
@@ -37,43 +37,65 @@
     </div>
    	<div style="display:none">
 		<div class="row" id="tempalte">
-			<div class="form-group col-sm-6 col-md-4 col-sm-offset-1">
-				<label for="class" name="label1"></label> 
+			<div class="form-group col-sm-6 col-md-6">
+				<label for="class" name="label1" style="width:40%"></label> 
 				<input type="text" class="form-control" id="class" placeholder="">
 			</div>
-			<div class="form-group col-sm-3 col-md-5 col-sm-offset-1">
-				<label for="class" name="label2"></label> 
+			<div class="form-group col-sm-6 col-md-6">
+				<label for="class" name="label2" style="width:40%"></label> 
 				<input type="text" class="form-control" id="class" placeholder="">
 			</div>
 		</div>
 	</div>
 </body>
 <script type="text/javascript">
-	var href = window.location.href;
-	var id = findParameter(href, "id");
-	var data = "code="+id;
+	var url = decodeURI(window.location.href);
+	var data = getAllParameters(url);
+	$("h3").html(data.description);
 	$.ajax({
-		url:"../../../../dubbo/getBoInfos.do",
-		data:data,
+		url:"../../../../dubbo/getMethodDetail.do",
+		data:JSON.stringify(data),
 		type:"post",
 		success:function(data){appendElement(data)},
-		dataType:"json"
+		dataType:"json",
+		contentType:"application/json; charset=UTF-8",
+		error:function(data){
+			alert(data.statusText);
+		}
 	});
 	
 	function appendElement(data){
-		data = eval(data);
-		for (var i = 0; i < data.length; i= i+2) {
+		var res = JSON.parse(data);
+		var keys = Object.keys(res);
+		var key;
+		var value;
+		debugger;
+		for(var j = 0; j < keys.length; j++ ){
+			key = keys[j];
+			value = res[key];
+			$("<h3></h3>").html(key+":").insertBefore($("#connect"));
 			var element = $("#tempalte").clone(false);
-			$(element).find("[name='label1']").html(data[i].fieldName);
-			$(element).find("[name='label1']").next().attr("name",data[i].fieldName);
-			if(i+1 < data.length){
-				$(element).find("[name='label2']").html(data[i+1].fieldName);
-				$(element).find("[name='label2']").next().attr("name",data[i+1].fieldName);
-			}else{
+			if(typeof value === 'string'){
+				$(element).find("[name='label1']").html(value+":");
 				$(element).find("[name='label2']").next().remove();
 				$(element).find("[name='label2']").remove();
+				$(element).insertBefore($("#connect"));
 			}
-			$(element).insertBefore($("#connect"));
+			if(Array.isArray(value)){
+				for (var i = 0; i < value.length; i= i+2) {
+					var element = $("#tempalte").clone(false);
+					$(element).find("[name='label1']").html(value[i].fieldName+":");
+					$(element).find("[name='label1']").next().attr("name",value[i].fieldName+":");
+					if(i+1 < value.length){
+						$(element).find("[name='label2']").html(value[i+1].fieldName+":");
+						$(element).find("[name='label2']").next().attr("name",value[i+1].fieldName+":");
+					}else{
+						$(element).find("[name='label2']").next().remove();
+						$(element).find("[name='label2']").remove();
+					}
+					$(element).insertBefore($("#connect"));
+				}	
+			}
 		}
 	}
 	

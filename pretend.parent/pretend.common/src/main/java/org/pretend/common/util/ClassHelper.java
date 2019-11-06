@@ -210,6 +210,15 @@ public class ClassHelper {
 		}
 	    return false;
     }
+    
+    public static boolean isStringType(Class<?> clazz) {
+		if(clazz.equals(String.class)
+				||clazz.equals(StringBuilder.class)
+				||clazz.equals(StringBuffer.class)){
+			return true;
+		}
+	    return false;
+    }
 
     public static boolean isNumber(Class<?> clazz) {
 	    if(isString(clazz)){
@@ -234,7 +243,7 @@ public class ClassHelper {
 	    return false;
     }
     
-    public static List<MethodDescription> getShortMthodName(Class<?> clazz){
+    public static List<MethodDescription> getMethodesDes(Class<?> clazz){
     	
     	List<MethodDescription> names = new ArrayList<MethodDescription>();
     	Method[] methodes = clazz.getDeclaredMethods();

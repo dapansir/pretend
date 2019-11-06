@@ -4,9 +4,7 @@ package org.pretend.tools.entity;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
-import java.util.Set;
 
-import org.pretend.common.Parameter;
 import org.pretend.common.bean.BeanDefinition;
 import org.pretend.common.bean.api.FieldAccessor;
 import org.pretend.common.util.ObjectUtil;

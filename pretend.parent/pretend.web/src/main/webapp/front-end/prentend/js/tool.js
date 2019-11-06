@@ -180,8 +180,22 @@ function toMethodList(value,row,index,field){
 function toMethodDetail(value,row,index,field){
 	
 	var classes = "btn btn-xs btn-success";
-	
-	return "<a class='btn btn-xs btn-success' href='invoke_detail.html?id="+value+"'>查看</a>";
+	var ele = "<a class='btn btn-xs btn-success' href='invoke_detail.html?id="+value+"&"+toUrlParam(row)+"'>查看</a>";
+	return ele;
+}
+
+function toUrlParam(obj){
+	var result = "";
+	var key;
+	var keys = Object.keys(obj);
+	for(var i=0;i<keys.length;i++){
+		key = keys[i];
+		result += (key+"="+obj[key]);
+		if(i<keys.length -1){
+			result += "&";
+		}
+	}
+	return result;
 }
 
 
@@ -198,6 +212,22 @@ function findParameter(location,key){
 		}
 	}
 	return null;
+}
+
+function getAllParameters(url){
+	var data = {};
+	var index = url.indexOf("?");
+	var parameter = url.substring(index+1);
+	var params = parameter.split("&");
+	var temp = null;
+	var tempArr = null;
+	for(var i=0;i<params.length;i++){
+		var temp = params[i].split("=");
+		if(temp.length == 2){
+			data[temp[0]] = temp[1];
+		}
+	}
+	return data;
 }
 
 
