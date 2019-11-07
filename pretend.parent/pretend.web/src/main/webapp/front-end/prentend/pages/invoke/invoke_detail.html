@@ -29,6 +29,7 @@
                     <div class="row" id="connect">
                         <div class="col-sm-offset-5">
                             <a class="btn btn-success" id="doTest">测试</a>
+                            <a class="btn btn-default" onclick="history.go(-1)">返回</a>
                         </div>
                     </div>
                 </form>
@@ -50,73 +51,136 @@
 </body>
 <script type="text/javascript">
 	var url = decodeURI(window.location.href);
-	var data = getAllParameters(url);
-	$("h3").html(data.description);
+	var parameters = getAllParameters(url);
+	$("h3").html(parameters.description);
 	$.ajax({
 		url:"../../../../dubbo/getMethodDetail.do",
-		data:JSON.stringify(data),
+		data:JSON.stringify(parameters),
 		type:"post",
-		success:function(data){appendElement(data)},
+		success:appendElement,
 		dataType:"json",
 		contentType:"application/json; charset=UTF-8",
-		error:function(data){
-			alert(data.statusText);
-		}
+		error:function(data){alert(data.statusText);}
 	});
+	
+	
+	var arg_names = [];
 	
 	function appendElement(data){
 		var res = JSON.parse(data);
 		var keys = Object.keys(res);
+		keys = keys.sort();
 		var key;
 		var value;
-		debugger;
 		for(var j = 0; j < keys.length; j++ ){
 			key = keys[j];
 			value = res[key];
-			$("<h3></h3>").html(key+":").insertBefore($("#connect"));
-			var element = $("#tempalte").clone(false);
-			if(typeof value === 'string'){
-				$(element).find("[name='label1']").html(value+":");
-				$(element).find("[name='label2']").next().remove();
-				$(element).find("[name='label2']").remove();
-				$(element).insertBefore($("#connect"));
-			}
+			$("<h3></h3>").html("参数"+key+":").insertBefore($("#connect"));
 			if(Array.isArray(value)){
+				var temp = [];
+				arg_names.push(temp);
 				for (var i = 0; i < value.length; i= i+2) {
-					var element = $("#tempalte").clone(false);
-					$(element).find("[name='label1']").html(value[i].fieldName+":");
-					$(element).find("[name='label1']").next().attr("name",value[i].fieldName+":");
+					var name1 = value[i].fieldName;
+					var label1 = name1+":";
+					var label2 = "";
+					var name2 = "";
+					temp.push(name1);
 					if(i+1 < value.length){
-						$(element).find("[name='label2']").html(value[i+1].fieldName+":");
-						$(element).find("[name='label2']").next().attr("name",value[i+1].fieldName+":");
-					}else{
-						$(element).find("[name='label2']").next().remove();
-						$(element).find("[name='label2']").remove();
+						name2 = value[i+1].fieldName;
+						label2 = name2+":";
+						temp.push(name2);
 					}
+					var element = getRowHtml(label1, name1, label2, name2, i);
 					$(element).insertBefore($("#connect"));
 				}	
+			}else{
+				var element = getRowHtml(value.fieldName+":", value.fieldName+j, null, null, 1);
+				$(element).insertBefore($("#connect"));
+				arg_names.push(value+j);
 			}
 		}
 	}
 	
+	function getRowHtml(label1,name1,label2,name2,index){
+		var row = document.createElement('div');
+		$(row).addClass("row");
+		var sub_row_1 = document.createElement('div');
+		$(sub_row_1).addClass("form-group col-sm-6 col-md-6");
+		$(row).append(sub_row_1);
+		var sub_row_2 = document.createElement('div');
+		$(sub_row_2).addClass("form-group col-sm-6 col-md-6");
+		$(row).append(sub_row_2);
+		
+		appendSubRow(sub_row_1, label1, name1, index);
+		if(label2 && null != label2 && "" != label2){
+			appendSubRow(sub_row_2, label2, name2, index);
+		}
+		
+		return row;
+	}
+	
+	function appendSubRow(row,labelHtml,name,index){
+		var label = document.createElement('label');
+		$(label).attr("for","class");
+		$(label).css("width","40%");
+		$(label).html(labelHtml);
+		var input = document.createElement('input');
+		$(input).addClass("form-control");
+		$(input).attr("name",name);
+		$(input).attr("id",name);
+		$(row).append(label);
+		$(row).append(input);
+	}
+	
 	$("#doTest").on("click",function(){
-		var send = $(".form-inline").serializeObject();
+		var send = JSON.stringify(getInvokeData());
 		$.ajax({
 			url:"../../../../dubbo/doTest.do",
-			data:JSON.stringify(send),
-			success:function(data) {
-				debugger;
-				if (undefined == data || null == data || data.length == 0) {
-					console.log("编号:" + id + "未查询到相关接口数据");
+			data:send,
+			success:function(res) {
+				if (undefined == res || null == res || res.length == 0) {
+					console.log("编号未查询到相关接口数据");
 					return;
 				}
-				alert(data.backMessage);
+				try{
+					res = JSON.parse(res);
+					alert(res.backMessage);
+				}catch(e){
+					alert(res);
+				}
 			},
 			contentType:"application/json; charset=UTF-8",
 			type:"post",
 			dataType:"json"
 		});
 	});
+	
+	function getInvokeData(){
+		var invoke_data = {};
+		for(var i = 0; i < arg_names.length; i++){
+			var jsonKey = i;
+			var arg = arg_names[i];
+			if(typeof arg === 'string'){
+				invoke_data[jsonKey] = $("#"+arg).val();
+			}
+			if(Array.isArray(arg)){
+				invoke_data[jsonKey] = {};
+				for(var j = 0; j < arg.length; j++){
+					var key = arg[j];
+					invoke_data[jsonKey][key] =  $("#"+key).val();
+				}
+			}
+		}
+		var result = {};
+		result.protocol = "dubbo";
+		result.name = parameters.name;
+		result.interface_name = parameters.belongTo;
+		result.parameter_types = parameters.parameterTypes;
+		result.address = "10.16.65.225:20880";
+		result.version = "1.0.0";
+		result.parameters = invoke_data;
+		return  result;
+	}
 	
 </script>
 </html>

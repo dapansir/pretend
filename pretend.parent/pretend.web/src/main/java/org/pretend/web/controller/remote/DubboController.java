@@ -2,6 +2,7 @@ package org.pretend.web.controller.remote;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.pretend.common.MethodDescription;
 import org.pretend.common.util.ClassHelper;
@@ -76,16 +77,42 @@ public class DubboController {
 	
 	@RequestMapping(value="/doTest",method=RequestMethod.POST)
 	@ResponseBody
-	public Object doTest(@RequestBody Map<String, String> param) {
+	public Object doTest(@RequestBody Map<String, Object> param) {
 		Object result = null;
-		String className = "";
-		String protocol = "";
-		String address = "";
-		String methodName = "";
-		Object[] args = {};
 		try {
+			String jsonString = JSONObject.toJSONString(param);
+			JSONObject jsonObject = JSONObject.parseObject(jsonString);
+			String protocol = jsonObject.getString("protocol");
+			String address = jsonObject.getString("address");
+			String className = jsonObject.getString("interface_name");
+			String methodName = jsonObject.getString("name");
+			String parameterTypes = jsonObject.getString("parameter_types");
+			String parameters = jsonObject.getString("parameters");
+			//解析参数
+			JSONObject parametersObject = JSONObject.parseObject(parameters);
+			Class<?>[] argClasses = new Class<?>[0];
+			Object[] args = new Object[0];
+			if(null != parameterTypes && parameterTypes.length() > 0){
+				String[] classes = parameterTypes.split(",");
+				argClasses = new Class<?>[classes.length];
+				args = new Object[classes.length];
+				for (int i = 0; i < classes.length; i++) {
+					argClasses[i] = Class.forName(classes[i]);
+					args[i] = parametersObject.getObject(String.valueOf(i), argClasses[i]);
+	           }
+			}
+			jsonObject.remove("protocol");
+			jsonObject.remove("address");
+			jsonObject.remove("interface_name");
+			jsonObject.remove("name");
+			jsonObject.remove("parameter_types");
+			jsonObject.remove("parameters");
+			Set<String> keySet = jsonObject.keySet();
 	        InvokeHelper helper = new InvokeHelper(className, protocol, address);
-	        helper.invoke(methodName, null, args);
+	        for (String key : keySet) {
+	        	helper.getParameters().addParameter(key, jsonObject.getString(key));
+            }
+	        result = helper.invoke(methodName, argClasses, args);
         } catch (IllegalArgumentException e) {
         	result = "缺少必要信息";
         } catch (ClassNotFoundException e) {

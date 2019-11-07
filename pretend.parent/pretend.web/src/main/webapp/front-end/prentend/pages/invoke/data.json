@@ -2,6 +2,6 @@
   {
   "no": "ftms_pay_01",
   "show_name": "平盘付款",
-  "op_interface":"org.pretend.remoting.dubbo.clazz.ClassMaker"
+  "op_interface":"org.pretend.web.controller.remote.TestService"
   }
 ]

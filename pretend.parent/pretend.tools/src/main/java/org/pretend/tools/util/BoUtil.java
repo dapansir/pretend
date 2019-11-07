@@ -30,20 +30,27 @@ public class BoUtil {
 					|| modifiers == Modifier.FINAL+Modifier.STATIC+Modifier.PROTECTED){
 				continue;
 			}
-			
-			if(ClassHelper.isNumber(field.getType())){
-				info.setFieldType(1);
-			}else if(ClassHelper.isBoolean(field.getType())){
-				info.setFieldType(2);
-			}else if(ClassHelper.isString(field.getType())){
-				info.setFieldType(3);
-			}else{
-				info.setFieldType(4);//其他类型,不支持
-			}
+			info.setFieldType(getFieldType(field.getType()));
 			info.setFieldName(field.getName());
 			arrayList.add(info);
         }
 		return arrayList;
+	}
+	
+	private static int getFieldType(Class<?> fieldClazz){
+		if(ClassHelper.isNumber(fieldClazz)){
+			return 1;
+		}
+		if(ClassHelper.isBoolean(fieldClazz)){
+			return 2;
+		}
+		if(ClassHelper.isStringType(fieldClazz)){
+			return 3;
+		}
+		if(ClassHelper.isTime(fieldClazz)){
+			return 4;
+		}
+		return 0;
 	}
 	
 	public static Map<String, Object> getMethodDetail(MethodDescription desc) {
@@ -53,11 +60,14 @@ public class BoUtil {
 			for (int i = 0; i < parameterTypes.length; i++) {
 				try {
 	                Class<?> clazz = Class.forName(parameterTypes[i]);
-	                int index = i+1;
+	                String index = String.valueOf(i+1);
 	                if(clazz.isPrimitive() || ClassHelper.isStringType(clazz)){
-	                	result.put(String.valueOf("parameter"+index), "arg"+index);
+	                	PropertyInfo info = new PropertyInfo();
+	                	info.setFieldName("arg");
+	                	info.setFieldType(getFieldType(clazz));
+	                	result.put(index, info);
 	                }else{
-	                	result.put(String.valueOf("parameter"+index), getPropertyInfos(clazz));
+	                	result.put(index, getPropertyInfos(clazz));
 	                }
                 } catch (ClassNotFoundException e) {
 	                e.printStackTrace();

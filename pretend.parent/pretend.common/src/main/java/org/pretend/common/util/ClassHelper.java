@@ -4,7 +4,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import org.pretend.common.MethodDescription;
@@ -241,6 +243,13 @@ public class ClassHelper {
 			return true;
 		}
 	    return false;
+    }
+    
+    public static boolean isTime(Class<?> clazz) {
+    	if(Date.class.isAssignableFrom(clazz)||Calendar.class.isAssignableFrom(clazz)){
+    		return true;
+    	}
+    	return false;
     }
     
     public static List<MethodDescription> getMethodesDes(Class<?> clazz){
