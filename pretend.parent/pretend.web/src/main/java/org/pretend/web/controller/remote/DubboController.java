@@ -2,7 +2,6 @@ package org.pretend.web.controller.remote;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.pretend.common.MethodDescription;
 import org.pretend.common.util.ClassHelper;
@@ -107,9 +106,8 @@ public class DubboController {
 			jsonObject.remove("name");
 			jsonObject.remove("parameter_types");
 			jsonObject.remove("parameters");
-			Set<String> keySet = jsonObject.keySet();
 	        InvokeHelper helper = new InvokeHelper(className, protocol, address);
-	        for (String key : keySet) {
+	        for (String key : jsonObject.keySet()) {
 	        	helper.getParameters().addParameter(key, jsonObject.getString(key));
             }
 	        result = helper.invoke(methodName, argClasses, args);
