@@ -26,7 +26,7 @@
 		<maven.compiler.compilerVersion>1.6</maven.compiler.compilerVersion>
 		<spring.version>4.3.25.RELEASE</spring.version>
 		<fastjson.version>1.2.47</fastjson.version>
-		<netty4.version>4.1.0.Final</netty4.version>
+		<netty4.version>4.1.42.Final</netty4.version>
 		<logback.version>1.2.3</logback.version>
 		<jackson.core.version>2.9.5</jackson.core.version>
 		<jackson.databind.version>2.9.5</jackson.databind.version>
