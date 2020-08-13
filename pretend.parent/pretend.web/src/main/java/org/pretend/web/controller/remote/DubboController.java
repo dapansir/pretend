@@ -51,9 +51,9 @@ public class DubboController {
 		return JSONObject.toJSONString(list);
 	}
 	
-	@RequestMapping(value="/getMethodDetail",method=RequestMethod.POST)
+	@RequestMapping(value="/getMethodDetail",method=RequestMethod.POST/*,produces="application/json;charset=utf-8;"*/)
 	@ResponseBody
-	public String getMethodDetail(@RequestBody Map<String,String> info){
+	public Map<String, Object> getMethodDetail(@RequestBody Map<String,String> info){
 		MethodDescription desc = new MethodDescription();
 		desc.setBelongTo(info.get("belongTo"));
 		desc.setName(info.get("name"));
@@ -70,8 +70,7 @@ public class DubboController {
 			desc.setSimpleParameterTypes(simpleParameterTypes.split(","));
 		}
 		desc.setDescription(null);
-		Map<String, Object> methodDetail = BoUtil.getMethodDetail(desc);
-		return JSONObject.toJSONString(methodDetail);
+		return BoUtil.getMethodDetail(desc);
 	}
 	
 	@RequestMapping(value="/doTest",method=RequestMethod.POST)

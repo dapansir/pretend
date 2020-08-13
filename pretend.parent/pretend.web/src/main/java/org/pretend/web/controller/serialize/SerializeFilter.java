@@ -17,7 +17,7 @@ private static final Set<String> EXCLUSIONES = new HashSet<String>();
 		EXCLUSIONES.add("defaultPort");
 		EXCLUSIONES.add("destroy");
 	}
-	@Override
+	
 	public boolean apply(Object object, String name, Object value) {
 		if(null == value){
 			return false;

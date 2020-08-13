@@ -15,5 +15,14 @@
 		<property name="prefix" value="/front-end/prentend/"></property>
 		<property name="suffix" value=".html"></property>
 	</bean>
-	<mvc:resources location="**/front-end/**" mapping="**/front-end/**"></mvc:resources>
+	<!-- <mvc:resources location="**/front-end/**" mapping="**/front-end/**"></mvc:resources> -->
+	<!-- <mvc:interceptors>
+		<bean></bean>
+		<mvc:interceptor>
+			<bean></bean>
+			<mvc:exclude-mapping path=""/>
+			<mvc:mapping path=""/>
+			<ref/>
+		</mvc:interceptor>
+	</mvc:interceptors> -->
  </beans>

@@ -11,7 +11,8 @@
        						http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd
        						">
        <mvc:annotation-driven>
-       	<mvc:message-converters register-defaults="true">
+      <!--  4.x以后,不需要配置了,默认已经初始化MappingJackson2HttpMessageConverter -->
+       	<!-- <mvc:message-converters register-defaults="true">
        		<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
        			<property name="supportedMediaTypes">
        				<list>
@@ -19,7 +20,7 @@
        				</list>
        			</property>
        		</bean>
-       	</mvc:message-converters>
+       	</mvc:message-converters> -->
        </mvc:annotation-driven>
        
        <context:component-scan base-package="org.pretend.**"></context:component-scan>       

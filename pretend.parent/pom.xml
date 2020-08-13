@@ -18,6 +18,7 @@
 		<module>pretend.web.menu</module>
 		<module>pretend.monitor.api</module>
 		<module>pretend.monitor.task</module>
+		<module>pretend.boot</module>
 	</modules>
 	<properties>
 		<project.verion>0.0.1-SNAPSHOT</project.verion>
@@ -32,6 +33,7 @@
 		<jackson.databind.version>2.9.5</jackson.databind.version>
 		<jackson.annotation.version>2.9.5</jackson.annotation.version>
 		<spring.jcl.version>5.1.6.RELEASE</spring.jcl.version>
+		<spring.boot.starter.version>2.2.2.RELEASE</spring.boot.starter.version>
 	</properties>
 
 
@@ -114,7 +116,11 @@
 				<artifactId>spring-jcl</artifactId>
 				<version>${spring.jcl.version}</version>
 			</dependency>
-
+			<dependency>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-starter</artifactId>
+				<version>${spring.boot.starter.version}</version>
+			</dependency>
 		</dependencies>
 	</dependencyManagement>
 </project>

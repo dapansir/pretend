@@ -7,17 +7,35 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 
+import org.pretend.common.file.PretendDirectory;
+
 public class MyTest {
 
 	public static void main(String[] args) {
+
+		整理代码机生成的代码();
+
+	}
+	
+	public static void 整理代码机生成的代码(){
 		
+		String dir = "D:/test/11111/";
+		PretendDirectory pretendDirectory = new PretendDirectory(dir);
+		try {
+			pretendDirectory.clearUpProjectFiles("D:/test/222/");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public static void 不知道测试的是什么() {
 		File tables = new File("D:\\test\\tables.txt");
 		BufferedReader bis;
 		try {
 			bis = new BufferedReader(new FileReader(tables));
 			String tableName = bis.readLine();
 			File file = new File("D:\\test\\test.txt");
-			if(!file.exists()){
+			if (!file.exists()) {
 				file.createNewFile();
 			}
 			String content = "";
@@ -33,8 +51,8 @@ public class MyTest {
 			xml.append("    <a:Modifier/>\n");
 			xml.append("    <a:Owner>FTMS_YZ</a:Owner>\n");
 			xml.append("</o:SPdoODBCSelectionObject>\n");
-			while(tableName != null){
-				content = xml.toString().replace("o1435", "0"+id).replace("tableName", tableName);
+			while (tableName != null) {
+				content = xml.toString().replace("o1435", "0" + id).replace("tableName", tableName);
 				fos.write(content.getBytes());
 				fos.flush();
 				tableName = bis.readLine();
@@ -47,13 +65,6 @@ public class MyTest {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
-	
-		
-		
-		
-
 	}
 
 }
